@@ -1,0 +1,86 @@
+<!-- Sidebar -->
+<%- include('./SuperAdminComponent/Sidebar.ejs') %>
+    <!-- Sidebar End -->
+
+    <div class="main-panel">
+        <!-- Navbar -->
+        <%- include('./SuperAdminComponent/Header.ejs') %>
+
+            <!-- End Navbar -->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary">
+                                    <h4 class="card-title">Orders</h4>
+                                    <p class="card-category">
+                                        <!-- Here is a subtitle for this table -->
+                                    </p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table" id="example_1" class="table  "
+                                                    style="width:100%; border: none;">
+                                                    <thead class="text-primary">
+                                                        <tr>
+                                                            <th>Sn</th>
+                                                            <th>Title</th>
+                                                            <th>Variant Title</th>
+                                                            <th>Quantuty</th>
+                                                            <th>Date</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% if(allData.length>= 1){
+                                                            allData.map((element, index)=> {
+                                                            let sn = index + 1;
+                                                            let { title, Date, quantity, variant_title} = element;
+                                                            %>
+                                                            <tr>
+                                                                <td>
+                                                                    <%=sn%>
+                                                                </td>
+                                                                <td>
+                                                                    <%=title%>
+                                                                </td>
+                                                                <td>
+                                                                    <%=variant_title%>
+                                                                </td>
+                                                                <td>
+                                                                    <%=quantity%>
+                                                                </td>
+                                                                <td>
+                                                                    <%=Date%>
+                                                                </td>
+
+                                                            </tr>
+
+                                                            <% }) } %>
+
+                                                    </tbody>
+                                                </table>
+                                                <!-- <%=allData%> -->
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%- include('./SuperAdminComponent/Footer.ejs') %>
+
+            </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $(".order__li").addClass("active");
+                    $('#example_1').DataTable();
+
+                })
+            </script>

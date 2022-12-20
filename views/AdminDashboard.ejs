@@ -1,0 +1,102 @@
+
+<!-- Sidebar -->
+<%- include('./Component/Sidebar.ejs') %>
+<!-- Sidebar End -->
+
+<div class="main-panel">
+	 <!-- Navbar -->
+   <%- include('./Component/Header.ejs') %>
+    <%
+    let walletAm;
+    let { walletBalance,countTodaysOrder } = data;
+    if(walletBalance.length >= 1){
+      walletAm = walletBalance[0].Amount
+    }else{
+      walletAm = []
+    }
+    %>
+    <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+			<div class="row dashboard_status_row">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon"  >
+                  <div class="card-icon">
+                    <i class="material-icons">paid</i>
+                  </div>
+                  <p class="card-category">Wallet </p>
+                  <h3 class="card-title"> $<%=walletAm%> </h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <!-- <i class="material-icons">date_range</i> Last 24 Hours -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">list_alt</i>
+                  </div>
+                  <p class="card-category">Todays Order</p>
+                  <h3 class="card-title"><%=countTodaysOrder%></h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <!-- <i class="material-icons">local_offer</i> Tracked from Github -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-primary card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">library_music</i>
+                  </div>
+                  <p class="card-category">Draft Music</p>
+                  <h3 class="card-title"> <%=data.unpublishedMusicCount %> </h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <!-- <i class="material-icons">local_offer</i> Tracked from Github -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-success card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">album</i>
+                  </div>
+                  <p class="card-category">Live Music</p>
+                  <h3 class="card-title"> <%=data.publishMusicCount %></h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <!-- <i class="material-icons">local_offer</i> Tracked from Github -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- Instruction -->
+	
+        <!-- Instruction -->
+
+
+        </div>
+      </div>
+      <%- include('./Component/Footer.ejs') %>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $(".dashboard_li").addClass("active");
+})
+</script>

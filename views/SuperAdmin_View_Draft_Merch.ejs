@@ -1,0 +1,71 @@
+
+<!-- Sidebar -->
+<%- include('./SuperAdminComponent/Sidebar.ejs') %>
+<!-- Sidebar End -->
+
+<div class="main-panel">
+	 <!-- Navbar -->
+   <%- include('./SuperAdminComponent/Header.ejs') %>
+
+    <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title">Merch</h4>
+                            <p class="card-category">
+                                <!-- Here is a subtitle for this table -->
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row" >
+                                <div class="col-md-12 table-responsive">
+                                    <table class="table" id="example_0" class="table  " style="width:100%; border: none;" >
+                                        <thead>
+                                            <tr>
+                                                <th> Sn. </th>
+                                                <th>Image</th>
+                                                <th>Title</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%
+                                            merchData.map((element, index)=>{
+                                                %>
+                                                <tr>
+                                                    <td> <%=index+1%> </td>
+                                                    <td> <img src="<%=element?.image[0]?.src%>" height="50" width="50" alt=""> </td>
+                                                    <td><%=element.title%></td>
+                                                    <td> <button class="btn btn-primary" > Draft </button> </td>
+                                                    <td>  <a href="/admin/merch/<%=element.productId%>" class="btn btn-primary" > View </a></td>
+                                                </tr>
+    
+                                                <%
+                                            })
+                                            %>
+                                     
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <%- include('./SuperAdminComponent/Footer.ejs') %>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $(".draft_merch__li").addClass("active");
+    $('#example_0').DataTable();
+
+})
+</script>

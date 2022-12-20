@@ -1,0 +1,582 @@
+<!-- Sidebar -->
+<%- include('./Component/Sidebar.ejs') %>
+<!-- Sidebar End -->
+<style>
+    .label{
+        margin: 0;
+    }
+</style>
+<div class="main-panel">
+   <!-- Navbar -->
+   <%- include('./Component/Header.ejs') %>
+   <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-header card-header-primary d-flex">
+                      <h4 class="card-title mr-2" style="line-height: 40px;" >Upload</h4>
+                      <ul class="nav nav-tabs" >
+                        <li class="nav-item">
+                          <a class="nav-link link_one" >
+                            1 <i class="material-icons">label_important</i> 
+                            <div class="ripple-container"></div>
+                          </a>
+                        </li>
+                        <li class="nav-item ">
+                          <a class="nav-link link_two">
+                            2  <i class="material-icons">label_important</i> 
+                            <div class="ripple-container"></div>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link link_three">
+                            3  <i class="material-icons">label_important</i> 
+                            <div class="ripple-container"></div>
+                          </a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link link_four">
+                              4  <i class="material-icons">label_important</i> 
+                              <div class="ripple-container"></div>
+                            </a>
+                          </li> -->
+                      </ul>
+                      <p class="card-category">
+                        <!-- Recording Information -->
+                      </p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-5 form_first">
+                            <div class="col-md-12">
+                                <label for="" class="h4"> Recording Information </label>
+                            </div>
+                       
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="">Song Title <span class="text-danger"> *</span> <span class="text-danger err_for_music_upload err_title" > Please fill this field ! </span> </label>
+                                        <input type="text" id="song_title" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="">Recording Year  <span class="text-danger"> *</span> <span class="text-danger err_for_music_upload err_recording_year" > Please fill this field ! </span></label>
+                                        <!-- <input type="text" id="Recording_Year" class="form-control"> -->
+                                        <select name="" id="Recording_Year" class="country_input form" >
+                                            <option value=""> Select Record Year </option>
+                                            <% 
+                                            
+                                             for(let i = 0; i < 43; i++){
+                                                 let year = 1980 + i;
+                                                 %>
+                                                 <option value="<%=year%>"> <%=year%> </option>
+                                                 <%
+                                             }
+                                            %>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-5">
+                                    <div class="form-group">
+                                        <label class="">Release Date  <span class="text-danger err_for_music_upload err_release_date" > Please fill this field ! </span></label>
+                                        <input type="date" id="ReleaseDate" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="">Country of Origin  <span class="text-danger"> *</span><span class="text-danger err_for_music_upload err_country" > Please fill this field ! </span></label>
+                                        <select name="" id="Country" class="country_input" >
+                                            <option value=""> Select Country </option>
+                                            <% countryData.forEach(element=>{
+                                              %>
+                                            <option value="<%=element.name%>"> <%=element.name%> </option>
+                              
+                                            <%
+                                            }) 
+                              
+                                            %>
+                                        </select>
+                                    </div>
+                                </div>
+                         
+                                    
+                        </div>
+                        <div class="row mt-3 form_second">
+                            <div class="col-md-7">
+                                    <label class="">Artwork <span class="text-danger"> *</span><span class="text-danger err_for_music_upload err_artist_image" > Please select an image ! </span></label>
+                                    <input type="file" id="Song_Image" onchange="readURL(this);" class="form-control"  accept=".jpg" multiple >
+                            </div>
+                            <div class="col-md-5">
+                                <img src="https://play-lh.googleusercontent.com/mOkjjo5Rzcpk7BsHrsLWnqVadUK1FlLd2-UlQvYkLL4E9A0LpyODNIQinXPfUMjUrbE=s180-rw" class="upload_preview_image" id="image_preview" alt="">
+                            </div> 
+                            <div class="col-md-12 ">
+                                <div class="form-group">
+                                    <label class="">Artist Role <span class="text-danger"> *</span><span class="text-danger err_for_music_upload err_artist_role" > Please fill this field ! </span></label>
+                                    <select name="" id="ArtistRole" class="country_input">
+                                        <option value=""> Select Artist Role</option>
+                                        <option value="Main Artist"> Main Artist </option>
+                                        <option value="Featured Artist"> Featured Artist </option>
+                                        <option value="Contributing Artist"> Contributing Artist </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <label class="">Artist Name <span class="text-danger"> *</span> <span class="text-danger err_for_music_upload err_artist_name" > Please fill this field ! </span> </label>
+                                <input type="text" id="ArtistName" class="form-control">
+                            </div>
+                       
+                            <div class="col-md-4 mt-2">
+                                <label class="">Genre<span class="text-danger"> *</span> <span class="text-danger err_for_music_upload err_artist_genre" > Please fill this field ! </span> </label> 
+                                <div class="d-flex">
+                                    <ul class="list_syle_none">
+                                        <li>
+                                            <input type="checkbox" value="Classical" name="Mood" > <span class="pl-1">Classical</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="African" name="Mood" > <span class="pl-1">African</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="Afrobeat" name="Mood" > <span class="pl-1">Afrobeat</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="Aggressive" name="Mood" > <span class="pl-1">Aggressive</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="Religious" name="Mood" > <span class="pl-1">Religious</span>
+                                        </li>
+                                    </ul>
+                                    <ul class="list_syle_none">
+                                        <li>
+                                            <input type="checkbox" value="Electronic" name="Mood" > <span class="pl-1">Electronic</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="House" name="Mood" > <span class="pl-1">House</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="Jazz" name="Mood" > <span class="pl-1">Jazz</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="Hip Hop" name="Mood" > <span class="pl-1">Hip Hop</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="R&B" name="Mood" > <span class="pl-1">R&B</span>
+                                        </li>
+                                 
+                                    </ul>
+                                    <ul class="list_syle_none">
+                                        
+                                        <li>
+                                            <input type="checkbox" value="Blues" name="Mood" > <span class="pl-1">Blues</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="Kwaito" name="Mood" > <span class="pl-1">Kwaito</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="Traditional" name="Mood" > <span class="pl-1">Traditional</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="Pop" name="Mood" > <span class="pl-1">Pop</span>
+                                        </li>
+                                
+                                        <li>
+                                            <input type="checkbox" value="Afrikaans" name="Mood" > <span class="pl-1">Afrikaans</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="Rap" name="Mood" > <span class="pl-1">Rap</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-2">
+                                <label class="">Style<span class="text-danger"> *</span> <span class="text-danger err_for_music_upload err_artist_style" > Please fill this field ! </span> </label> 
+                                <div class="d-flex">
+                                    <ul class="list_syle_none" >
+                                        <li>
+                                            <input type="checkbox" value="Pop" name="Theme" > <span class="pl-1">Pop</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="Indie" name="Theme" > <span class="pl-1">Indie</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="Acoustic" name="Theme" > <span class="pl-1">Acoustic</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="Repetitive" name="Theme" > <span class="pl-1">Repetitive</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="Children" name="Theme" > <span class="pl-1">Children</span>
+                                        </li>
+                                    </ul>
+                                    <ul class="list_syle_none" >
+                                        <li>
+                                            <input type="checkbox" value="60s" name="Theme" > <span class="pl-1">60's</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="70s" name="Theme" > <span class="pl-1">70's</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="80s" name="Theme" > <span>80's</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="Singer Songwriter" name="Theme" > <span>Singer Songwriter</span>
+                                        </li>
+                                    </ul>
+                                    <ul class="list_syle_none" >
+                                        <li>
+                                            <input type="checkbox" value="Ethnic Eelements" name="Theme" > <span>Ethnic Elements</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="Holiday" name="Theme" > <span>Holiday</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="CPT" name="Theme" > <span>CPT</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" value="JHB" name="Theme" > <span>JHB</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row mb-4 mt-3 form_four"> 
+                            dd
+                        </div> -->
+                        <div class="row mb-4 mt-3 form_third ">
+                            <div class="col-md-12">
+                                <label class="">Audio File <span class="text-danger"> *</span>  <span class="text-danger err_for_music_upload err_artist_music_file" > Please select Mp3 file ! </span>  </label> 
+                                <input type="file" id="Song_Mp3_File" class="form-control" name="artist_song" accept=".mp3" multiple >
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <div class="form-group">
+                                    <label class="">Song Pricing in $<span class="text-danger"> *</span>  <span class="text-danger err_for_music_upload err_artist_music_price" > Please fill this field ! </span>  </label> 
+                                    <input type="number" id="SongPricing" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3 mb-4 " >
+                                <label for=""> Lyrics  <span class="text-danger"> *</span> </label>
+
+                                <div class="form-group" >
+                                    <textarea name="editor1">   </textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="" class="h4"> Licence Price </label>
+                            </div>
+                            <div class="col-md-12 table-responsive">
+                                <table class="table" id="example_0" class="table  " style="width:100%; border: none;" >
+                                    <thead>
+                                        <tr>
+                                            <th> Sn. </th>
+                                            <th>Licence</th>
+                                     </tr>
+                                    </thead>
+                                    <tbody>                        
+                                        <tr>
+                                            <td>1</td>
+                                            <td><input type="text" value="Buy mp3" disabled ></td>                 
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td><input type="text" value="Non-exclusive" disabled ></td>                 
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td><input type="text" value="Exclusive" disabled ></td>                 
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td><input type="text" value="TV/FILM" disabled ></td>                 
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td><input type="text" value="free download" disabled ></td>                 
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td><input type="text" value="Royalty free" disabled ></td>                 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="checkbox" id="term_first" > <span> I have full rights for the music. </span>
+                            </div> 
+                            <div class="col-md-12">
+                                <input type="checkbox" id="term_second"> <span> None of the songs are a cover of another artist material.  </span>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="checkbox" id="term_third"> <span> The music is clear for use in any web platform, including YouTube monetization. </span>
+                            </div>
+                            <div class="col-md-12">
+                                <span class="text-danger err_for_music_upload err_artist_terms_condi" > Please accept all the terms and contitions ! </span> 
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-end" >
+                                <button class="btn btn-primary display_none" onclick="prevForm()" id="PrevBtn"  > Previous </button>
+                                <button class="btn btn-primary" onclick="nextForm()" id="nextBtn"  > Next </button>
+                                <button class="btn btn-primary " id="songUploadBtn"  > Upload </button>
+                            </div>
+                        </div>
+
+
+                   
+                    </div>
+                  </div>
+                </div>
+               
+              </div> 
+
+
+        </div>
+      </div>
+   <%- include('./Component/Footer.ejs') %>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+
+<script>
+    let userValue = "<%=user %>";
+    $(document).ready(function(){
+        $(".upload_li").addClass("active");
+          CKEDITOR.replace( 'editor1' );
+
+        // Only One checbox checked 
+        $('input[name="vocal_type"]').click(function() {
+            $('input[name="vocal_type"]').not(this).prop("checked", false);
+         });
+         $('input[name="Mood"]').click(function() {
+            $('input[name="Mood"]').not(this).prop("checked", false);
+         });
+         $('input[name="Theme"]').click(function() {
+            $('input[name="Theme"]').not(this).prop("checked", false);
+         });
+         
+    
+  //  $(".form_third").show()
+})
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function (e) {
+            $('#image_preview')
+            .attr('src', e.target.result);
+        };
+        
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+// next previous js
+let form_first = document.getElementById("form_first");
+let form_second = document.getElementById("form_second");
+let form_third = document.getElementById("form_third");
+let form_four = document.getElementById("form_four");
+
+var formVal = 1;
+function checkPosition(formVal){
+    if( formVal == 1 ){
+        formVal += 1;
+    }
+
+    alert(formVal)
+}
+
+//checkPosition()
+var songImage = $("#Song_Image")
+var songMp3File =  $("#Song_Mp3_File")
+var songTitle = $("#song_title")
+var recordingYear =  $("#Recording_Year")
+var releaseDate =  $("#ReleaseDate")
+var countryMusic =  $("#Country")
+var musicRole =  $("#ArtistRole")
+var artistName = $("#ArtistName")
+var songPrice = $("#SongPricing")
+var terms_condi_first = document.getElementById("term_first")
+var terms_condi_second = document.getElementById("term_second")
+var terms_condi_third = document.getElementById("term_third")
+
+
+ 
+function hide_show_decide(emptyva, errClass){
+        if(emptyva == ""){
+            $(`.${errClass}`).show();
+            return false;
+        }else{
+            $(`.${errClass}`).hide();
+            return true;
+        }
+}
+function third_form_err(){
+    let err_artist_music_price = hide_show_decide(songPrice.val(), "err_artist_music_price");
+    if(songMp3File.prop("files")[0] == undefined){
+        console.log("empty music");
+        $(".err_artist_music_file").show();
+    }else{
+        $(".err_artist_music_file").hide();
+        console.log("tee_00 music available");
+    }
+    if(terms_condi_first.checked && terms_condi_second.checked && terms_condi_third.checked){
+        $(".err_artist_terms_condi").hide()
+    } else{
+        $(".err_artist_terms_condi").show()
+    }
+   
+    if(err_artist_music_price && songMp3File.prop("files")[0] !== undefined && terms_condi_first.checked && terms_condi_second.checked && terms_condi_third.checked){
+        return true;
+    }else{
+        return false;
+    }
+}
+function first_form_err(){
+    let err_title = hide_show_decide(songTitle.val(), "err_title");
+    let err_recording_year =   hide_show_decide(recordingYear.val(), "err_recording_year");
+   // let err_release_date =  hide_show_decide(releaseDate.val(), "err_release_date");
+    let err_country =   hide_show_decide(countryMusic.val(), "err_country");
+
+    if(err_title && err_recording_year && err_country ){
+        return true;
+    }else{
+        return false;
+    }
+
+}
+function second_form_err(){
+    let err_artist_role = hide_show_decide(musicRole.val(), "err_artist_role");
+    let err_artist_name = hide_show_decide(artistName.val(), "err_artist_name");
+    let Mood = [];
+    let Theme = [];
+    let Moodcheckboxes = document.querySelectorAll('input[name=Mood]:checked');
+    let Themecheckboxes = document.querySelectorAll('input[name=Theme]:checked');
+    for (var i = 0; i < Moodcheckboxes.length; i++) {
+        Mood.push(Moodcheckboxes[i].value)
+    }
+    for (var i = 0; i < Themecheckboxes.length; i++) {
+        Theme.push(Themecheckboxes[i].value)
+    }
+
+    if(Mood.length == 0){
+        $(".err_artist_genre").show();
+    }else{
+        $(".err_artist_genre").hide();
+    }
+    if(Theme.length == 0){
+        $(".err_artist_style").show();
+    }else{
+        $(".err_artist_style").hide();
+    }
+    if(songImage.prop("files")[0] == undefined){
+        console.log("empty image");
+        $(".err_artist_image").show();
+    }else{
+        $(".err_artist_image").hide();
+        console.log("tee image available");
+    }
+
+
+    if(err_artist_role && err_artist_name && Mood.length != 0 && Theme.length != 0 && songImage.prop("files")[0] != undefined){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function nextForm(){
+    function formIncreaser(){
+        formVal += 1;
+        checkBoxVisi();
+    }
+    if(formVal == 1){
+        let formChecker = first_form_err();
+            formChecker ? formIncreaser() : "";
+    }else if(formVal == 2){
+        let secondForm = second_form_err();
+            secondForm ? formIncreaser() : "";
+    }
+    else if(formVal == 3){
+            formIncreaser() 
+    }
+
+}
+function prevForm(){
+    formVal = formVal - 1;
+    //alert(formVal);
+    checkBoxVisi();
+}
+
+$(".form_first").show();
+$(".form_second").hide();
+$(".form_third").hide();
+//$(".form_four").hide();
+
+$("#songUploadBtn").addClass("event_none");
+$(".link_one").addClass("active");
+
+
+function checkBoxVisi(){
+    console.log(formVal)
+    if(formVal == 1){
+        $(".form_first").show();
+        $(".form_second").hide();
+        $(".form_third").hide();
+       // $(".form_four").hide();
+        $("#PrevBtn").css("display","none");
+        $("#nextBtn").css("display","block");
+        $("#songUploadBtn").addClass("event_none");
+        $(".link_one").addClass("active");
+        $(".link_two").removeClass("active");
+        $(".link_three").removeClass("active");
+        $(".link_four").removeClass("active");
+
+
+
+    }else if(formVal == 2){
+        $(".form_first").hide();
+        $(".form_second").show();
+        $(".form_third").hide();
+       // $(".form_four").hide();
+        $("#PrevBtn").css("display","block");
+        $("#nextBtn").css("display","block");
+        $("#songUploadBtn").addClass("event_none");
+        $(".link_one").removeClass("active");
+        $(".link_two").addClass("active");
+        $(".link_three").removeClass("active");
+        $(".link_four").removeClass("active");
+    }else if(formVal == 3){
+        $(".form_first").hide();
+        $(".form_second").hide();
+        $(".form_third").show();
+       // $(".form_four").hide();
+        $("#PrevBtn").css("display","block");
+        $("#nextBtn").css("display","none");
+        $("#songUploadBtn").removeClass("event_none");
+        $(".link_one").removeClass("active");
+        $(".link_two").removeClass("active");
+        $(".link_three").addClass("active");
+        $(".link_four").removeClass("active");
+    }
+    // else if(formVal == 4){
+    //     $(".form_first").hide();
+    //     $(".form_second").hide();
+    //     $(".form_third").hide();
+    //     //$(".form_four").show();
+    //     $("#nextBtn").css("display","none");
+    //     $("#PrevBtn").css("display","block");
+    //     $("#songUploadBtn").removeClass("event_none");
+    //     $(".link_one").removeClass("active");
+    //     $(".link_two").removeClass("active");
+    //     $(".link_three").removeClass("active");
+    //     $(".link_four").addClass("active");
+
+    // }
+
+}
+
+
+</script>
+<script src="/javascripts/AdiminJs/SongUpload.js"></script>

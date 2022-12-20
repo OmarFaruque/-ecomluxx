@@ -1,0 +1,302 @@
+*{
+  
+
+
+}
+
+p, h3{
+    
+}
+
+.we-800{
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+.small_font{
+    font-size: 1rem;
+}
+.dol_amp{
+    font-size: .8rem;
+}
+.dashboard_status_row{
+    justify-content: space-between;
+}
+.plan_btn{
+    margin-left: 6%;
+}
+
+.plan_link{
+    background-color: #04040454;
+}
+.cod_settingsrow{
+    margin-top: 22px;
+}
+.save_div_settings button{
+    float: right;
+}
+.plan_card{
+    background-color: #FFFF !important;
+}
+.plan_card .card-head{
+    text-align: center;
+    padding: 10px 10px;
+}
+.plan_card .card-head .card-title{
+    color: #FFFF !important;   
+
+}
+.plan_card .card-body {
+    padding-top: 0;
+}
+.plan_card ul{
+    list-style: none;
+    padding-left: 0;
+    color: #FFFF;
+}
+.plan_card .card-body .material-icons{
+    color: #0ff70f !important;
+    font-size: 1.4rem;
+    position: relative;
+    top: 6px;
+}
+.plan_card .buy_now a{
+    margin: 0 10%;
+    width: 80%;
+    text-transform: none;
+}
+.dropdown-menu-right .dropdown-item{
+    color: rgb(97, 94, 94) !important;
+}
+
+.edit_profile_row{
+    margin-top: 20px;
+}
+
+#example_0 .row{
+  margin: 0 ;
+  background: linear-gradient(60deg, #7b1fa24f, #579c838c);
+  color:#FFF;
+  padding:5px
+}
+#example_0 .row img{
+  height: 75px;
+  width: 75px;
+}
+.music_listing_row p{
+    margin: 0;
+}
+.music_id{
+    font-size: 11px;
+    margin-block-start: -6px !important;
+}
+.music_audio_tag{
+    background-color: #f1f3f4;
+}
+.status_badge{
+    padding: 5px 16px;
+    font-size: 1rem;
+    font-weight: 100;
+}
+.live_badge{
+    background: linear-gradient(60deg, #15d0a5, #00f91f);
+    pointer-events: none;
+    text-transform: unset;
+
+
+}
+.unpublished_badge{
+   background: linear-gradient(60deg, #752158, #ef2679b0);
+   pointer-events: none;
+   text-transform: unset;
+}
+.view_tbn{
+    background: linear-gradient(60deg, #15c7d0, #00f99f);
+    padding: 8px 22px;
+    border-radius: 2px;
+}
+.country_input{
+    color: #8e9292;
+    width: 100%;
+    position: relative;
+    top: 31px;
+    /* background: red; */
+    border: none;
+    padding-left: 10px;
+    background: none;
+    border-bottom: 1px solid #75737354
+}
+.upload_preview_image{
+    height: 70px;
+    width: 80px;
+}
+.list_syle_none{
+    list-style: none;
+    padding-inline-start: 10px;
+    max-width: 100px !important;
+}
+.display_none{
+    display: none;
+}
+
+.event_none{
+    pointer-events: none;
+    opacity: .7;
+    background: #838383e3 !important;
+}
+.err_for_music_upload{
+    display: none;
+    font-size: 12px;
+}
+.padding_0{
+    padding: 0 !important;
+}
+.heade_mob_he{
+    display: none;
+    font-size: 24px;
+    color: #FFF;
+    /* font-weight:800; */
+    margin:0;
+    position: relative;
+    left: 18%;
+    letter-spacing:3px
+   
+}
+.w3-modal {
+    z-index: 100 !important;
+}
+.w3-modal-content {
+    width: 60% !important;
+}
+.super_adimin_userimage{
+    border-radius: 50%;
+    float: right;
+}
+.user_head_1{
+    font-weight: 800;
+    color: #000;
+}
+.user_sub_value{
+    font-size: .9rem;
+    padding-left: 5px;
+    margin: 0 !important;
+}
+.withdraw_btn{
+    background-color: #696969 !important;
+    border-color: #00bcd4 !important;
+    box-shadow: 0 2px 2px 0 #00bcd457, 0 3px 1px -2px #00bcd440, 0 1px 5px 0 #00bcd433 !important;
+}
+.active_with{
+    background-color: #00bcd4 !important;
+}
+.withdraw_select_method{
+    width: 300px;
+    padding-left: 10px;
+}
+.with_input_field{
+    width: 300px;
+    padding-left: 10px;
+}
+.with_2_row{
+    display: none;
+}
+.with_3_row{
+    display: none;
+}
+.with_amount_in{
+    width: 100%;
+}
+.err_insufficient{
+    display: none;
+}
+.bg_withdra .odd{
+    background-color: #202940 !important;
+}
+.withdraw_view_btn{
+    padding: 5px 20px;
+    margin: 0;
+}
+.super-rec{
+    font-size: 12px !important;
+}
+.super-admin-hero{
+    height: 400px;
+    /* border: 2px solid red; */
+}
+.bg-muted-dash{
+    background-color: #202940;
+}
+.copy_admin_bnt{
+    border: 1px solid #cacaca;
+    padding: 1px 10px;
+    margin-left: 10px;
+    background: #c5c5c5b5;
+    border-radius: 2px;
+}
+.terms_conditions{
+    position: relative;
+bottom: 2px;
+}
+.term_and_link{
+    color: #00bcd4 !important;
+    text-decoration: underline;
+}
+.terms_div{
+    margin: 0; color: #fff;
+    padding: 10px 50px;
+}
+.head_term{
+    border-bottom: 2px solid #fff;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.head_term h1{
+ font-size: 3rem;
+ margin-bottom: 4px;
+}
+.terms_div, ul, p {
+    font-size: .9rem;
+}
+.option_me{
+    width: 100px;
+}
+.option_me_value{
+    width: 250px;
+}
+.option_remove{
+    padding: 7px 21px;
+}
+.add_another_btn{   
+    border: none;
+    padding: 3px 12px;
+    color: #6c6c6c;
+    border-radius: 2px;
+}
+.small_input{
+    width: 70px;
+}
+.nav-link{
+    color: #fff !important;
+}
+@media screen and (max-width:786px) {
+    .heade_mob_he{
+        display: block;
+    }
+    .navbar{
+        background-color: #000000 !important;
+    }
+    .card .card-block.artist_top_view{
+        padding: 35px 10px !important;
+    }
+    .music_audio_tag{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .heade_mob_he{
+        font-size: 20px;
+        left: 3%;
+
+    }
+}
+select option { color: black; }

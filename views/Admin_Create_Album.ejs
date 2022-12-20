@@ -1,0 +1,81 @@
+<!-- Sidebar -->
+<%- include('./Component/Sidebar.ejs') %>
+    <!-- Sidebar End -->
+
+    <div class="main-panel">
+        <!-- Navbar -->
+        <%- include('./Component/Header.ejs') %>
+            <% %>
+                <div class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header d-flex card-header-primary">
+                                        <h4 class="card-title mt-2 mr-3">Create album</h4>
+                                        <ul class="nav nav-tabs" data-tabs="tabs">
+
+                                        </ul>
+
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row p-4" id="row_two">
+                                            <div class="col-md-12 form-group">
+                                                <label for=""> Album name </label>
+                                                <input type="text" class="form-control" name="" id="albumname">
+                                            </div>
+                                            <div class="col-md-12 form-group">
+
+                                                <button class="btn btn-primary" id="createBtn">
+                                                    Create
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <%- include('./Component/Footer.ejs') %>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            //    $('#example_0').DataTable();
+            $(".dashboard_li_album_create").addClass("active");
+
+
+        });
+        const createBtn = document.getElementById("createBtn");
+        createBtn.addEventListener("click", function () {
+            createBtn.innerHTML = "Creating....";
+            const albumname = document.getElementById("albumname").value;
+            // console.log(albumname);
+            $.ajax({
+                url: "/artist/create/album",
+                method: "POST",
+                data: {
+                    albumname
+                },
+                success: function (result) {
+                  //  console.log(result);
+                    createBtn.innerHTML = "Create";
+                    document.getElementById("albumname").value = "";
+                    if (result.message == 'flag1') {
+                        alert("Album created successfull !");
+                    }else{
+                        alert("404 error !");
+                    }
+                }
+
+            })
+        })
+
+    </script>

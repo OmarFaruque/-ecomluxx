@@ -1,0 +1,229 @@
+<!-- Sidebar -->
+<%- include('./Component/Sidebar.ejs') %>
+    <!-- Sidebar End -->
+
+    <div class="main-panel">
+        <!-- Navbar -->
+        <%- include('./Component/Header.ejs') %>
+
+            <!-- End Navbar -->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary">
+                                    <!-- <h4 class="card-title">Save withdraw details </h4> -->
+
+                                    <p class="card-category">
+                                        <!-- Here is a subtitle for this table -->
+                                        Upload Merch
+                                    </p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="">Title</label>
+                                            <input type="text" class="form-control" id="title" placeholder="" name=""
+                                                id="">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="">List</label>
+                                           <select name=""class="form-control" id="merch_list">
+                                               <option value="CD">CD</option>
+                                               <option value="Cassette">Cassette</option>
+                                               <option value="Vinyl">Vinyl</option>
+                                               <option value="DVD">DVD</option>
+                                               <option value="Clothing">Clothing</option>
+                                               <option value="Ticket">Ticket</option>
+                                               <option value="Artwork">Artwork</option>
+                                               <option value="Poetry">Poetry</option>
+                                               <option value="Book">Book</option>
+                                               <option value="Literature">Literature</option>
+                                               <option value="other">other</option>
+
+
+                                           </select>
+                                        </div>
+                                        <div class="col-md-12 mb-4">
+                                            <label for="">Description</label>
+                                            <textarea name="editor_description">   </textarea>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="">Image</label>
+                                            <input type="file"  style="width: 100%;" name="" id="merch_Image" accept=".jpg" multiple />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <img src="/images/admin/logo2.png" height="100" width="100" alt="noImage" />
+                                        </div>
+                                        <!-- <div class="col-md-6">
+                                            <label for="">Price</label>
+                                            <input type="number" class="form-control" name="" id="price">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="">SKU (Stock Keeping Unit)</label>
+                                            <input type="text" class="form-control" name="" id="sku">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="">Barcode (ISBN, UPC, GTIN, etc.)</label>
+                                            <input type="text" class="form-control" name="" id="barcode">
+                                        </div> -->
+                                      
+                                        <div class="col-md-12">
+                                            <label for="">Variants</label>
+                                            <p><input type="checkbox" name="" id="variants_check">
+                                                This product has multiple options, like different sizes or colors</p>
+                                        </div>
+                                        <div class="col-md-12" id="options_div">
+                                            <h4>OPTIONS</h4>
+                                            <ul id="options_hold">
+                                                <li id="options_parent_1">
+                                                    <p>Option</p>
+                                                    <input type="text" id="option_1" class="option_me" />
+                                                    <input type="text" placeholder="Seprate with a comma"
+                                                        id="option_1_value" class="option_me_value" />
+                                                    <button onClick="removeList(`1`)"
+                                                        class="btn btn-danger option_remove">Remove</button>
+                                                </li>
+                                            </ul>
+                                            <button id="addAnotherOption" class="add_another_btn">Add another
+                                                option</button>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button id="save_btn" class="btn btn-primary"
+                                                style="float: right;">Save</button>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <%- include('./Component/Footer.ejs') %>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".upload_merch_li").addClass("active");
+            CKEDITOR.replace('editor_description');
+
+        })
+    </script>
+    <script>
+
+        // 
+        let addAnother = document.getElementById("addAnotherOption");
+        let saveBtn = document.getElementById("save_btn");
+        let variants_check = document.getElementById("variants_check");
+        let options_div = document.getElementById("options_div");
+        options_div.style.display = "none";
+        let ind = 1;
+        variants_check.addEventListener('change', function () {
+            function displayHandle(act) {
+                options_div.style.display = act;
+
+            }
+            this.checked ? displayHandle("block") : displayHandle("none")
+        })
+        addAnother.addEventListener('click', function () {
+            ind = ind + 1;
+            console.log(ind);
+            if (ind > 2) {
+                this.style.display = 'none';
+            }
+            let htmlValue = `<li id="options_parent_${ind}"  >
+                    <p>Option </p>
+                    <input type="text" id="option_1" class="option_me" />
+                    <input type="text" placeholder="Seprate with a comma" id="option_1_value" class="option_me_value"  />  
+                    <button onClick="removeList(${ind})" class="btn btn-danger option_remove" >Remove</button>
+                </li>`;
+            let optionsHolds = document.getElementById("options_hold");
+            optionsHolds.insertAdjacentHTML("beforeend", htmlValue);
+
+
+        })
+
+        saveBtn.addEventListener('click', function () {
+            $("#save_btn").html("Saving...");
+            let getAllOPtions = [];
+            let getAllOPtionsValue = [];
+            let optionsLength = document.getElementsByClassName('option_me')
+            let optionsValuesLength = document.getElementsByClassName('option_me_value')
+
+            for (let i = 0; i < optionsLength.length; i++) {
+                let optionsValues = document.getElementsByClassName('option_me')[i].value;
+                getAllOPtions.push(optionsValues);
+            }
+            for (let i = 0; i < optionsValuesLength.length; i++) {
+                let optionsValues = document.getElementsByClassName('option_me_value')[i].value;
+                getAllOPtionsValue.push(optionsValues.split(','));
+            }
+
+            console.log(getAllOPtions);
+            console.log(getAllOPtionsValue);
+            let description = CKEDITOR.instances.editor_description.getData();
+            let title = document.getElementById("title");
+            let list = document.getElementById('merch_list').value;
+            let merch_Image = $("#merch_Image").prop("files");
+                 console.log([...merch_Image]);
+
+            var form_data = new FormData();
+
+            form_data.append("title", title.value);
+            form_data.append("description", description);
+            form_data.append("variantAvailable", variants_check.checked);
+            form_data.append("getoptions", JSON.stringify(getAllOPtions));
+            form_data.append("getoptionsValue", JSON.stringify(getAllOPtionsValue));
+            form_data.append("list", list);
+            [...merch_Image].map((item, i)=>{
+                form_data.append(`merchImage${i}`, item);
+            })
+     
+
+
+            console.log(description);
+            $.ajax({
+         url: '/artist/merch/upload',
+         type: 'POST',
+         processData: false, // important
+         contentType: false, // important
+         dataType : 'json',
+         data: form_data,
+        //  headers: {
+        //     Authorization : `Bearer ${userValue}`
+        //  },
+         success: function(result){
+             console.log(result);
+             if(result.message ==  "flag1"){
+                 $("#save_btn").html("Saving");
+                  window.location.replace(`https://artist-music-seller.herokuapp.com/artist/merch/${result.data}`)
+            }
+            
+
+         },
+     });
+
+
+
+        })
+
+        function removeList(index) {
+            ind = ind - 1;
+            ind < 3 ? addAnother.style.display = "block" : null;
+            console.log("okkk", ind);
+            document.getElementById(`options_parent_${index}`).remove()
+            function hideMe(){
+                options_div.style.display = "none";
+                variants_check.checked = false 
+            }
+            ind == 0 ? hideMe() : ""
+        }
+    </script>

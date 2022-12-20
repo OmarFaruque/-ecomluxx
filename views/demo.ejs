@@ -1,0 +1,27 @@
+
+
+<!-- Sidebar -->
+<%- include('./Component/Sidebar.ejs') %>
+<!-- Sidebar End -->
+
+<div class="main-panel">
+	 <!-- Navbar -->
+   <%- include('./Component/Header.ejs') %>
+
+    <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+    
+
+
+        </div>
+      </div>
+      <%- include('./Component/Footer.ejs') %>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $(".dashboard_li").addClass("active");
+})
+</script>

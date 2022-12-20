@@ -1,0 +1,301 @@
+<!-- Sidebar -->
+<%- include('./Component/Sidebar.ejs') %>
+    <!-- Sidebar End -->
+
+    <div class="main-panel">
+        <!-- Navbar -->
+        <%- include('./Component/Header.ejs') %>
+            <% var userPaypal; if(payData.length>= 1){
+                userPaypal = payData[0].paypalId;
+                }else{
+                userPaypal = "";
+                }
+
+
+
+
+                if(walletBalance.length >= 1){
+                var wallValue = (walletBalance[0].Amount)
+                }else{
+                var wallValue = []
+                }
+                %>
+                <!-- End Navbar -->
+                <div class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-header-primary">
+                                        <!-- <h4 class="card-title">Save withdraw details </h4> -->
+                                        <button class="btn btn-warning withdraw_btn active_with" id="with_1_row">
+                                            Withdraw Request </button>
+                                        <button class="btn btn-warning withdraw_btn" id="with_2_row"> Statemant
+                                        </button>
+                                        <button class="btn btn-warning withdraw_btn" id="with_3_row"> Save withdraw
+                                            methods </button>
+                                        <p class="card-category">
+                                            <!-- Here is a subtitle for this table -->
+
+                                        </p>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row with_1_row">
+                                            <div class="col-md-12">
+                                                <h3> Wallet Amount : $ <%=wallValue %>
+                                                </h3>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for=""> Amount : </label> <br>
+                                                <input type="number" placeholder="Amount" id="amount_withdraw"
+                                                    onkeyup="valueAmount()" class="with_amount_in" />
+                                                <p class="err_insufficient text-danger mt-2 "> Insufficient wallet
+                                                    amount ! </p>
+                                            </div>
+                                            <div class="col-md-12 mt-4">
+                                                <button class="btn btn-success" onclick="withdrawRequest()"> Withdraw
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row with_2_row">
+                                            <h3>Withdraw statemant</h3>
+                                            <select name="" class="" id="tablechange" onchange="getRequestValue()"  id="">
+                                                <option value="new">Pending </option>
+                                                <option value="paid"> Paid </option>
+                                            </select>
+                                            <div class="example" >
+                                                <table id="example" class="table table-striped table-bordered"
+                                                    style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Sn</th>
+                                                            <th>Amount</th>
+                                                            <th>Date</th>
+                                                            <th>Transaction Id</th>
+                                                            <th>Attachment</th>
+                                                            <th>Status</th>
+                                                            <!-- <th>Action</th> -->
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="bg_withdra">
+                                                        <% if(withdrawData.length>= 1){
+                                                            withdrawData.map((element, index)=> {
+                                                            let { Amount, Status, Date, TransactionId, AttachmentUrl } =
+                                                            element;
+                                                            let sn = index + 1;
+                                                            if(Status == 1){
+                                                            %>
+                                                            <tr>
+                                                                <td>
+                                                                    <%=sn%>
+                                                                </td>
+                                                                <td>$<%=Amount%>
+                                                                </td>
+                                                                <td>
+                                                                    <%=Date%>
+                                                                </td>
+                                                                <td>
+                                                                
+                                                                    <% if(TransactionId){ %>
+                                                                    
+                                                                            <span><%=TransactionId%></span>
+                                                                        <% }else{ %>
+                                                                            <span class="badge badge-danger"> Under Process
+                                                                            </span>
+                                                                            <% } %>
+                                                                </td>
+                                                                <td>
+                                                                    <% if(AttachmentUrl){ %>
+                                                                        <a href="<%=AttachmentUrl%>" target="_blank">
+                                                                            Download </a>
+
+                                                                        <% }else{ %>
+                                                                            <span class="badge badge-danger"> Under Process
+                                                                            </span>
+                                                                            <% } %>
+
+                                                                </td>
+                                                                <td><span
+                                                                        class="badge badge-<%= Status == 2 ? 'success' : 'primary'  %>">
+                                                                        <%= Status==2 ? 'Paid' : 'Pending' %>
+                                                                    </span></td>
+                                                                <!-- <td> <button class="btn btn-primary withdraw_view_btn" >View</button> </td>                                                 -->
+                                                            </tr>
+                                                            <% } }) } %>
+
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="example_1" style="display: none;" >                                   
+                                                <table id="example_1" class="table table-striped table-bordered"
+                                                style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sn</th>
+                                                        <th>Amount</th>
+                                                        <th>Date</th>
+                                                        <th>Transaction Id</th>
+                                                        <th>Attachment</th>
+                                                        <th>Status</th>
+                                                        <!-- <th>Action</th> -->
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="bg_withdra">
+                                                    <% if(withdrawData.length>= 1){
+                                                        withdrawData.map((element, index)=> {
+                                                        let { Amount, Status, Date, TransactionId, AttachmentUrl } =
+                                                        element;
+                                                        let sn = index + 1;
+                                                        if(Status == 2){
+                                                        %>
+                                                        <tr>
+                                                            <td>
+                                                                <%=sn%>
+                                                            </td>
+                                                            <td>$<%=Amount%>
+                                                            </td>
+                                                            <td>
+                                                                <%=Date%>
+                                                            </td>
+                                                            <td>
+                                                            
+                                                                <% if(TransactionId){ %>
+                                                                
+                                                                        <span><%=TransactionId%></span>
+                                                                    <% }else{ %>
+                                                                        <span class="badge badge-danger"> Under Process
+                                                                        </span>
+                                                                        <% } %>
+                                                            </td>
+                                                            <td>
+                                                                <% if(AttachmentUrl){ %>
+                                                                    <a href="<%=AttachmentUrl%>" target="_blank">
+                                                                        Download </a>
+
+                                                                    <% }else{ %>
+                                                                        <span class="badge badge-danger"> Under Process
+                                                                        </span>
+                                                                        <% } %>
+
+                                                            </td>
+                                                            <td><span
+                                                                    class="badge badge-<%= Status == 2 ? 'success' : 'primary'  %>">
+                                                                    <%= Status==2 ? 'Paid' : 'Pending' %>
+                                                                </span></td>
+                                                            <!-- <td> <button class="btn btn-primary withdraw_view_btn" >View</button> </td>                                                 -->
+                                                        </tr>
+                                                        <% } }) } %>
+
+
+                                                </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                        <div class="row with_3_row">
+                                            <div class="col-md-12">
+                                                <p> Save your payment details !</p>
+
+                                                <div class="paypal_with mt-3">
+                                                    <div>
+                                                        <label for="">Paypal User Id <span>*</span> </label> <br>
+                                                        <input type="text" value="<%=userPaypal %>"
+                                                            placeholder="paypal user id" class="with_input_field" />
+                                                        <p class="mt-2 text-danger err_pay" style="display: none;"> This
+                                                            field cant be empty ! </p>
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        <button class="btn btn-primary" onclick="submitPay()">
+                                                            <% if(payData.length>= 1){ %> Update <% }else{ %> Save
+                                                                    <% } %>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <%- include('./Component/Footer.ejs') %>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        let userValue = "<%=user%>";
+        let walletAmmount = "<%=wallValue%>";
+     $(document).ready(function () {
+            $('#example').DataTable();
+            $('#example_1').DataTable();
+
+         
+
+            //$(".with_1_row").hide()
+        })
+        function valueAmount() {
+            let amount_withdraw = document.getElementById("amount_withdraw").value;
+            if (Number(amount_withdraw) <= Number(walletAmmount)) {
+                $(".err_insufficient").hide();
+            } else {
+                $(".err_insufficient").show();
+            }
+            // console.log(amount_withdraw)
+            // console.log(walletAmmount);
+        }
+
+        function withdrawRequest() {
+            let Amount = document.getElementById("amount_withdraw").value;
+            if (Number(Amount) <= Number(walletAmmount) && Number(Amount) != 0) {
+                $.ajax({
+                    url: `/artist/withdraw/request`,
+                    method: "POST",
+                    data: { Amount: Amount },
+                    headers: {
+                        Authorization: `Bearer ${userValue}`
+                    },
+                    success: function (result) {
+                        console.log(result)
+                        if (result.message == "flag1") {
+                            alert("Withdraw request sent !")
+                            window.location.reload();
+                        }else if(result.message == "flag"){
+                            alert("Please save Withdraw method!")
+                        } 
+                        else {
+                            alert("404 Error !")
+                        }
+                    }
+                })
+            } else {
+                alert("Error !")
+            }
+        }
+        function getRequestValue(){
+    let selectValue = document.getElementById("tablechange").value;
+
+    if(selectValue == "new"){
+        $(".example").show()
+        $(".example_1").hide();
+
+    }else{
+        $(".example").hide()
+        $(".example_1").show();
+    }
+   
+
+}
+    </script>
+    <script src="/javascripts/AdiminJs/withpage.js"></script>
+
+
+
+    //https://www.codewithharry.com/blogpost/setup-ubuntu-20-04-server
+    //https://www.codewithharry.com/blogpost/lamp-stack-ubuntu-20-04

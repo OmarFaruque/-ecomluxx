@@ -1,0 +1,386 @@
+<!-- Sidebar -->
+<%- include('./SuperAdminComponent/Sidebar.ejs') %>
+<!-- Sidebar End -->
+
+<div class="main-panel">
+   <!-- Navbar -->
+   <%- include('./SuperAdminComponent/Header.ejs') %>
+   <!-- End Navbar -->
+   <!--  -->
+   <% 
+   let { SongTitle, RecordingYear, ReleaseDate, Country, ArtistRole, ArtistName, MusicImage, MusicFile, ProductID, VendorId, Published, Theme, Mood, Lyrics } = data.musicData;
+   let { allVarients } = data;
+  
+   
+   function CheckMood(moodValue){
+       if(Mood.includes(moodValue)){
+           return `checked`;
+        }
+    }
+    function CheckTheme(themeValue){
+         if(Theme.includes(themeValue)){
+             return `checked`;
+         }
+    }
+ %>
+   <!--  -->
+      <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-header d-flex card-header-primary">
+                      <h4 class="card-title mt-2 mr-2">Edit Music</h4>
+                      <ul class="nav nav-tabs" data-tabs="tabs">
+                        <li class="nav-item">
+                          <a class="nav-link active" href="#profile" onclick="getMeChange(1)" data-toggle="tab">
+                            1 <i class="material-icons">label_important</i> 
+                            <div class="ripple-container"></div>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#messages" onclick="getMeChange(2)" data-toggle="tab">
+                            2  <i class="material-icons">label_important</i> 
+                            <div class="ripple-container"></div>
+                          </a>
+                        </li>
+                       
+                      </ul>
+                      <p class="card-category">
+                        <!-- Recording Information -->
+                      </p>
+                    </div>
+                    <div class="card-body">
+                        <section class="music_view_row" >
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="" class="h4"> Recording Information </label>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="">Song Title <span class="text-danger"> *</span></label>
+                                    <input type="text" value="<%=SongTitle %>" id="song_title" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="">Recording Year</label>
+                                    <input type="text" value="<%=RecordingYear %>" id="Recording_Year" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="">Release Date</label>
+                                    <input type="date" value="<%=ReleaseDate %>" id="ReleaseDate" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="">Country of Origin  <span class="text-danger"> *</span></label>
+                                    <select name="" value="" id="Country" class="country_input" id="">
+                                        <!-- <option  <% if(Country == "South Africa"){ %> selected <% } %> value="South Africa"> South Africa </option>
+                                        <option  <% if(Country == "Canada"){ %> selected <% } %> value="Canada" > Canada </option>
+                                        <option  <% if(Country == "America"){ %> selected <% } %> value="America"> America </option>
+                                        <option <% if(Country == "India"){ %> selected <% } %> class="" value="India"  > India </option>
+                                        <option <% if(Country == "Australia"){ %> selected <% } %> value="Australia"> Australia </option> -->
+                                           <option value=""> Select Country </option>
+                                        <% countryData.forEach(element=>{
+                                            let myel = element.name;
+                                            var selected = ( Country == myel ) ? "selected" : "";
+                                            
+                                          %>
+                                        <option value="<%=myel%>"  <%=selected %> > <%=myel%> </option>
+                          
+                                        <%
+                                        }) 
+                          
+                                        %>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                    <label class="">Artwork <span class="text-danger"> *</span></label>
+                                    <input type="file" id="Song_Image" onchange="readURL(this);" class="form-control"  accept=".jpg" >
+                                    <input type="hidden" value="<%=JSON.stringify(MusicImage)%>" id="image_urldata" >
+                            </div>
+                            <div class="col-md-3">
+                                <img src="<%=MusicImage[0].src%>" class="upload_preview_image" id="image_preview" alt="no image">
+                            </div>               
+                        </div>
+                        <div class="row mb-4 mt-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="">Artist Role <span class="text-danger"> *</span></label>
+                                    <select name="" id="ArtistRole" class="country_input" id="">
+                                        <option  <% if(ArtistRole == "Main Artist"){ %> selected <% } %> value="Main Artist"> Main Artist </option>
+                                        <option <% if(ArtistRole == "Featured Artist"){ %> selected <% } %> value="Featured Artist"> Featured Artist </option>
+                                        <option <% if(ArtistRole == "Contributing Artist"){ %> selected <% } %> value="Contributing Artist"> Contributing Artist </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="">Artist Name <span class="text-danger"> *</span></label>
+                                <input type="text" value="<%=ArtistName%>" id="ArtistName" class="form-control">
+                            </div>
+                            
+            
+                            <div class="col-md-4 mt-2">
+                                <label class="">Genre<span class="text-danger"> *</span></label> 
+                                <div class="d-flex">
+                                    <ul class="list_syle_none">
+                                        <li>
+                                            <input type="checkbox" <%=CheckMood(`Classical`) %> value="Classical" name="Mood" > <span class="pl-1">Classical</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" <%=CheckMood(`African`) %> value="African" name="Mood" > <span class="pl-1">African</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" <%=CheckMood(`Afrobeat`) %> value="Afrobeat" name="Mood" > <span class="pl-1">Afrobeat</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" <%=CheckMood(`Aggressive`) %> value="Aggressive" name="Mood" > <span class="pl-1">Aggressive</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" <%=CheckMood(`Religious`) %>  value="Religious" name="Mood" > <span class="pl-1">Religious</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" <%=CheckMood(`Electronic`) %> value="Electronic" name="Mood" > <span class="pl-1">Electronic</span>
+                                        </li>
+                                    </ul>
+                                    <ul class="list_syle_none">
+                                        <li>
+                                            <input type="checkbox" <%=CheckMood(`House`) %> value="House" name="Mood" > <span class="pl-1">House</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" <%=CheckMood(`Jazz`) %> value="Jazz" name="Mood" > <span class="pl-1">Jazz</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" <%=CheckMood(`Hip Hop`) %>  value="Hip Hop" name="Mood" > <span class="pl-1">Hip Hop</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" <%=CheckMood(`R&B`) %> value="R&B" name="Mood" > <span class="pl-1">R&B</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" <%=CheckMood(`Blues`) %> value="Blues" name="Mood" > <span class="pl-1">Blues</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" <%=CheckMood(`Kwaito`) %> value="Kwaito" name="Mood" > <span class="pl-1">Kwaito</span>
+                                        </li>
+                                       
+                                    </ul>
+                                    <ul class="list_syle_none">
+                                        <li>
+                                            <input type="checkbox" <%=CheckMood(`Traditional`) %> value="Traditional" name="Mood" > <span class="pl-1">Traditional</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" <%=CheckMood(`Pop`) %> value="Pop" name="Mood" > <span class="pl-1">Pop</span>
+                                        </li>
+                                
+                                        <li>
+                                            <input type="checkbox" <%=CheckMood(`Afrikaans`) %> value="Afrikaans" name="Mood" > <span class="pl-1">Afrikaans</span>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" <%=CheckMood(`Rap`) %> value="Rap" name="Mood" > <span class="pl-1">Rap</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-2">
+                                <label class="">Style<span class="text-danger"> *</span></label> 
+                                <div class="d-flex">
+                                <ul class="list_syle_none" >
+                                    <li>
+                                        <input type="checkbox"  <%=CheckTheme(`Pop`) %> value="Pop" name="Theme" > <span class="pl-1">Pop</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox"  <%=CheckTheme(`Indie`) %> value="Indie" name="Theme" > <span class="pl-1">Indie</span>
+                                    </li>
+                                    <li> 
+                                        <input type="checkbox" <%=CheckTheme(`Acoustic`) %> value="Acoustic" name="Theme" > <span class="pl-1">Acoustic</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox"  <%=CheckTheme(`Repetitive`) %> value="Repetitive" name="Theme" > <span class="pl-1">Repetitive</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox"  <%=CheckTheme(`Children`) %> value="Children" name="Theme" > <span class="pl-1">Children</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox"  <%=CheckTheme(`60s`) %> value="60s" name="Theme" > <span class="pl-1">60s</span>
+                                    </li>
+                                </ul>
+                                <ul class="list_syle_none" >
+                                    <li>
+                                        <input type="checkbox"  <%=CheckTheme(`70s`) %> value="70s" name="Theme" > <span class="pl-1">70s</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox"  <%=CheckTheme(`80s`) %> value="80s" name="Theme" > <span>80s</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox"  <%=CheckTheme(`Singer Songwriter`) %> value="Singer Songwriter" name="Theme" > <span>Singer Songwriter</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox"  <%=CheckTheme(`Ethnic Eelements`) %> value="Ethnic Eelements" name="Theme" > <span>Ethnic Eelements</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox"  <%=CheckTheme(`Holiday`) %> value="Holiday" name="Theme" > <span>Holiday</span>
+                                    </li>
+                                    
+                                </ul>
+                                <ul class="list_syle_none" >
+                                    <li>
+                                        <input type="checkbox"  <%=CheckTheme(`CPT`) %> value="CPT" name="Theme" > <span>CPT</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox"  <%=CheckTheme(`JHB`) %> value="JHB" name="Theme" > <span>JHB</span>
+                                    </li>
+                                </ul>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4 mt-3"> 
+                            <div class="col-md-4 mt-2">
+                                <audio src="<%=MusicFile %>" id="audio" class="music_audio_tag" controls>audio element not supported</audio>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="">Audio File <span class="text-danger"> *</span></label> 
+                                <input type="file" id="Song_Mp3_File" class="form-control" name="artist_song" accept=".mp3" >
+                                <input type="hidden" value="<%=MusicFile%>" id="music_urldata" >
+                            </div>
+                            <div class="col-md-12 mt-3 mb-4 " >
+                                <label for=""> Lyrics  <span class="text-danger"> *</span> </label>
+
+                                <div class="form-group" >
+                                    <textarea name="editor2">  <%=Lyrics %>  </textarea>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-end">
+                                <input type="hidden" id="product_idtp" value="<%=ProductID %>" >
+                                <input type="hidden" id="vendor_idtp" value="<%=VendorId %>" >
+
+                                
+                                <button class="btn btn-success mr-3" id="songPublishBtn" > Publish </button>
+                                <button class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-lg" id="songRejectBtn" > Reject </button>
+
+                            </div>
+                        </div>
+                    </section>
+                        <div class="row varient_row_update">   
+                            <div class="col-md-12">
+                                <label for="" class="h4"> Licence Price </label>
+                            </div>
+                            <div class="col-md-12 table-responsive">
+                                <table class="table" id="example_0" class="table  " style="width:100%; border: none;" >
+                                    <thead>
+                                        <tr>
+                                            <th> Sn. </th>
+                                            <th>Licence</th>
+                                            <!-- <th>Project</th>
+                                            <th>Category</th> -->
+                                            <th>Price</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%
+                                        allVarients.map((element, index)=> {
+                                            let { option1, option2, option3, price, id } = element;
+                                        %>                                         
+                                        <tr>
+                                            <td><%=index+1%></td>
+                                            <td><input type="text" value="<%=option1%>" disabled ></td>
+                                            <!-- <td><input type="text" value="<%=option2%>" disabled ></td>
+                                            <td><input type="text" value="<%=option3%>" disabled ></td> -->
+                                            <td><input type="number" id="varient_price_<%=index+1%>" value="<%=price%>" placeholder="price" class="" ></td>
+                                            <td>
+                                                <input type="hidden" id="varient_id_<%=index+1%>" value="<%=id%>" >
+                                                <button class="btn btn-success" id="update_var_id_<%=index+1%>" value="<%=id%>"  style="padding: 7px 29px;" onclick="updateVarientPrice('<%=index+1%>')" >Update</button>
+                                            </td>                                          
+                                        </tr>
+                                        <%
+                                        }) 
+                                        %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- <%= JSON.stringify(allVarients[0])%> -->
+                        </div>
+                       
+
+                   
+                    </div>
+                  </div>
+                </div>
+               
+              </div> 
+        </div>
+      </div>
+  <!-- Large modal -->
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Reject Music</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <textarea name="editor1">  </textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+            <button type="button" class="btn btn-primary" id="send_email_btn" onclick="rejectMusic()" > Send Mail </button>
+          </div>
+        </div>
+      </div>
+</div>
+
+   <%- include('./SuperAdminComponent/Footer.ejs') %>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+
+
+<script>
+$(document).ready(function(){
+   // $("#songRejectBtn").click()
+    CKEDITOR.replace( 'editor1' );
+    CKEDITOR.replace( 'editor2' );
+    $('input[name="Mood"]').click(function() {
+            $('input[name="Mood"]').not(this).prop("checked", false);
+         });
+         $('input[name="Theme"]').click(function() {
+            $('input[name="Theme"]').not(this).prop("checked", false);
+         });
+
+})
+function rejectMusic(){
+    $("#send_email_btn").html("Sending...");
+    let vendor_id, product_id ,maildata ;
+        maildata = CKEDITOR.instances.editor1.getData();
+        product_id = $("#product_idtp").val();
+        vendor_id = $("#vendor_idtp").val();
+        $.ajax({
+            url:`/admin/music/rejected`,
+            method:"POST",
+            data:{vendor_id, product_id ,maildata},
+            success:function(result){
+                $("#send_email_btn").html("Send Mail");
+                    if(result.message == "flag1"){
+                        alert("Reject Email Sent To Artist !");
+                    }else{
+                        alert("Error 401 !")
+                    }
+            }
+        })
+    //onsole.log(data    );
+}
+
+</script>
+<script src="/javascripts/SuperAdminJs/DraftMusic.js"></script>

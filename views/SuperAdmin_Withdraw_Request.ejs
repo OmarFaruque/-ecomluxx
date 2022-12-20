@@ -1,0 +1,259 @@
+
+<!-- Sidebar -->
+<%- include('./SuperAdminComponent/Sidebar.ejs') %>
+<!-- Sidebar End -->
+
+<div class="main-panel">
+	 <!-- Navbar -->
+   <%- include('./SuperAdminComponent/Header.ejs') %>
+
+    <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header  card-header-primary">
+                            <h4 class="card-title">Withdraw Request</h4>
+                            <select name="" class="" id="tablechange" onchange="getRequestValue()"  id="">
+                                <option value="new"> New Request </option>
+                                <option value="paid"> Paid Request </option>
+                            </select>
+                            <p class="card-category">
+                                <!-- Here is a subtitle for this table -->
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12 new_table">
+                                    <table class="table" id="example_1" class="table  " style="width:100%; border: none;" >
+                                        <thead class="text-primary">
+                                            <tr>
+                                                <th>Sn</th>
+                                                <th>Name</th>
+                                                <th>Amount</th>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <th>Action</th>                                             
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%
+                                            if(getWithData.length >= 1){
+                                                getWithData.map((element, index)=> {
+                                                    let sn = index + 1;
+                                                    let { Status, Date , Amount, VendorId, ArtistName, _id } = element;
+                                                    if(Status == 1){
+                                                    %>
+                                                    <tr>
+                                                        <td> <%=sn%> </td>
+                                                        <td><%=ArtistName%></td>
+                                                        <td><%=Amount%></td>
+                                                        <td><%=Date%></td>
+                                                        <td> <span class="badge badge-<%=Status == 2 ? 'success' : 'primary'%>">
+                                                            <%=Status == 2 ? 'Paid success' : 'New request' %>
+                                                        </span> </td>
+                                                        <td> 
+                                                            <input type="hidden" value="<%=VendorId%>" id="venid__<%=sn%>" >
+                                                            <input type="hidden" value="<%=_id%>" id="transacid__<%=sn%>" >
+
+                                                            <button class="btn btn-primary withdraw_view_btn" onclick="payWithdraw('<%=sn%>')"  data-toggle="modal" data-target="#exampleModal" > Pay </button> </td>
+    
+                                                    </tr>
+
+                                                    <%
+                                                 }
+                                                })
+                                            }
+                                            %>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="col-md-12 paid_table" style="display:none" >
+                                    <table class="table" id="example_2" class="table  " style="width:100%; border: none;" >
+                                        <thead class="text-primary">
+                                            <tr>
+                                                <th>Sn</th>
+                                                <th>Name</th>
+                                                <th>Amount</th>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <th>Action</th>                                             
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%
+                                            if(getWithData.length >= 1){
+                                                getWithData.map((element, index)=> {
+                                                    let sn = index + 1;
+                                                    let { Status, Date , Amount, VendorId, ArtistName, _id } = element;
+                                                    if(Status == 2){
+                                                    %>
+                                                    <tr>
+                                                        <td> <%=sn%> </td>
+                                                        <td><%=ArtistName%></td>
+                                                        <td><%=Amount%></td>
+                                                        <td><%=Date%></td>
+                                                        <td> <span class="badge badge-<%=Status == 2 ? 'success' : 'primary'%>">
+                                                            <%=Status == 2 ? 'Paid success' : 'New request' %>
+                                                        </span> </td>
+                                                        <td> 
+                                                            <input type="hidden" value="<%=VendorId%>" id="venid__<%=sn%>" >
+                                                            <input type="hidden" value="<%=_id%>" id="transacid__<%=sn%>" >
+
+                                                            <button class="btn btn-primary withdraw_view_btn" onclick="payWithdraw('<%=sn%>')"  data-toggle="modal" data-target="#exampleModal" > Pay </button> </td>
+    
+                                                    </tr>
+
+                                                    <%
+                                                 }
+                                                })
+                                            }
+                                            %>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+
+                            </div>
+                            <!-- <%=getWithData%> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <%- include('./SuperAdminComponent/Footer.ejs') %>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><b> Paypal Id : </b> <span id="pay_id" ></span> </h5>
+          <button type="button" onclick="clearinputs()" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"  >&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        <div class="" >
+            <label for=""> Transaction Id * </label>
+            <input type="text" placeholder="Transaction Id" class="" style="width:100%" id="transaction_id" >
+        </div>
+        <div class="" >
+            <label for=""> Attachment </label>
+            <input type="file" id="transaction_attach" class="form-control" >
+        </div>
+        <span id="err_pay_p" class='text-danger' >  </span>
+        </div>
+        <div class="modal-footer">
+            <input type="hidden" id="vender-id" value="" />
+            <input type="hidden" id="transac-id" value="" />
+
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancle</button>
+          <button type="button" class="btn btn-success" id="paid_Btn" onclick="paidAmmount()" >Paid</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $(".super_withdrwa__li").addClass("active");
+    $('#example_1').DataTable();
+    $('#example_2').DataTable();
+
+
+}) 
+
+ async function payWithdraw(sn){
+    let vendId = document.getElementById(`venid__${sn}`).value;
+    let transacId = document.getElementById(`transacid__${sn}`).value;
+    document.getElementById("vender-id").value = vendId;
+    document.getElementById("transac-id").value = transacId;
+
+    let getvenderPayMethod = await fetch('/admin/artist/paypal/data',{
+        method:"POST",
+        headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+           },
+        body: JSON.stringify({venderId : vendId })
+    })
+    let data = await getvenderPayMethod.json();
+    if(data.message == "flag1"){
+        //console.log(data.data);
+        let { paypalId } = data.data
+        document.getElementById("pay_id").innerHTML = paypalId;
+    }else{
+        console.log("error 401");
+        document.getElementById("pay_id").innerHTML = "payment method not saved";
+
+    }
+ 
+}
+async function paidAmmount(){
+    let transactioId = document.getElementById("transaction_id").value;//transac-id
+    let venderId = document.getElementById("transac-id").value;
+    if(transactioId){
+        document.getElementById('err_pay_p').innerHTML = "";
+        document.getElementById('paid_Btn').innerHTML = "wait...";
+
+
+
+    
+    console.log(transactioId , "---", venderId);
+     var form_data = new FormData();  
+     form_data.append("withdrawAttachment", $("#transaction_attach").prop("files")[0]);
+     form_data.append("venderId", venderId);    
+     form_data.append("transactionID",transactioId);  
+     
+     
+     $.ajax({
+         url: '/admin/artist/paid',
+         type: 'POST',
+         processData: false, // important
+         contentType: false, // important
+         dataType : 'json',
+         data: form_data,
+         success: function(result){
+       document.getElementById('paid_Btn').innerHTML = "Paid";
+            if(result.message != "flag1"){
+                alert("Error 404 !")
+            }
+             console.log(result);
+        
+
+         },
+     });
+
+    }else{
+        document.getElementById('err_pay_p').innerHTML = "Please fill both the fields !"
+    }
+}
+function clearinputs(){
+    document.getElementById('err_pay_p').innerHTML = "";
+    document.getElementById("transaction_id").value = ""
+    document.getElementById('transaction_attach').value = "";
+
+}
+
+function getRequestValue(){
+    let selectValue = document.getElementById("tablechange").value;
+
+    if(selectValue == "new"){
+        $(".new_table").show()
+        $(".paid_table").hide();
+
+    }else{
+        $(".new_table").hide()
+        $(".paid_table").show();
+    }
+   
+
+}
+</script>
+

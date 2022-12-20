@@ -1,0 +1,37 @@
+
+<!-- Sidebar -->
+<%- include('./SuperAdminComponent/Sidebar.ejs') %>
+<!-- Sidebar End -->
+
+<div class="main-panel">
+	 <!-- Navbar -->
+   <%- include('./SuperAdminComponent/Header.ejs') %>
+
+    <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title">All Artist</h4>
+                            <p class="card-category">
+                                <!-- Here is a subtitle for this table -->
+                            </p>
+                        </div>
+                        <div class="card-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <%- include('./SuperAdminComponent/Footer.ejs') %>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $(".order__li").addClass("active");
+})
+</script>

@@ -1,0 +1,26 @@
+.resetpassform{
+  height: 400px;
+  border: 2px solid white;
+  background-color:white !important;
+}
+.res_col_me{
+  margin: 10px auto;
+}
+.reset_head h1{
+  color: white;
+  text-align: center;
+  font-size: 38px;
+  margin-top: 20px;
+}
+.inpt_clas{
+  width: 100%;
+  padding: 6px;
+  border: 2px solid #bbbbbb;
+}
+.save_new_pass{
+  cursor: pointer;
+  color: #fffdfd;
+  background: rebeccapurple;
+  border: none;
+  margin-top: 10px;
+}

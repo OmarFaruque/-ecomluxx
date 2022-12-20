@@ -1,0 +1,269 @@
+
+<!-- Sidebar -->
+<%- include('./SuperAdminComponent/Sidebar.ejs') %>
+<!-- Sidebar End -->
+
+<div class="main-panel">
+	 <!-- Navbar -->
+   <%- include('./SuperAdminComponent/Header.ejs') %>
+<%
+ let { productData } = data;
+%>
+   <div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header d-flex card-header-primary">
+                  <h4 class="card-title mt-2 mr-3">Edit Merch</h4>
+                  <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#profile" onclick="getMeChange(1)" data-toggle="tab">
+                        1 <i class="material-icons">label_important</i> 
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#messages" onclick="getMeChange(2)" data-toggle="tab">
+                        2  <i class="material-icons">label_important</i> 
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                   
+                  </ul>
+                  <p class="card-category">
+                    <!-- Recording Information -->
+                  </p>
+                </div>
+                <div class="card-body">
+                    <div class="row" id="row_one">
+                        <div class="col-md-12">
+                            <label for="">Title</label>
+                            <input type="text" class="form-control" value="<%=productData[0].title%>" id="title" placeholder="" name=""
+                                id="">
+                        </div>
+                        <div class="col-md-12 mb-4">
+                            
+                            <label for="">Description</label>
+                            <textarea name="editor_description"> <%=productData[0].description%>  </textarea>
+                        </div>
+                        <!-- <div class="col-md-6">
+                            <label for="">Image</label>
+                            <input type="file" accept="accept/jpg" style="width: 100%;" name="" id="merch_Image">
+                        </div>
+                        <div class="col-md-6">
+                            <img src="/images/admin/logo2.png" height="100" width="100" alt="noImage" />
+                        </div> -->
+                        <!-- <div class="col-md-6">
+                            <label for="">Price</label>
+                            <input type="number" class="form-control" name="" id="price">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">SKU (Stock Keeping Unit)</label>
+                            <input type="text" class="form-control" name="" id="sku">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Barcode (ISBN, UPC, GTIN, etc.)</label>
+                            <input type="text" class="form-control" name="" id="barcode">
+                        </div> -->
+                      
+                        <!-- <div class="col-md-12">
+                            <label for="">Variants</label>
+                            <p><input type="checkbox" name="" id="variants_check">
+                                This product has multiple options, like different sizes or colors</p>
+                        </div>
+                        <div class="col-md-12" id="options_div">
+                            <h4>OPTIONS</h4>
+                            <ul id="options_hold">
+                                <li id="options_parent_1">
+                                    <p>Option</p>
+                                    <input type="text" id="option_1" class="option_me" />
+                                    <input type="text" placeholder="Seprate with a comma"
+                                        id="option_1_value" class="option_me_value" />
+                                    <button onClick="removeList(`1`)"
+                                        class="btn btn-danger option_remove">Remove</button>
+                                </li>
+                            </ul>
+                            <button id="addAnotherOption" class="add_another_btn">Add another
+                                option</button>
+                        </div> -->
+                        <div class="col-md-12"  >
+                            <input type="hidden" id="pro_id" value="<%=productData[0].productId%>"  >
+                            <button id="save_btn" class="btn btn-primary"
+                                style="float: right;" onclick="updateMerch()" >Publish</button>
+
+                        </div>
+                    </div>
+                    <div class="row" id="row_two" >
+                        <div class="col-md-12 table-responsive">
+                            <table class="table" id="example_0" class="table  " style="width:100%; border: none;" >
+                                <thead>
+                                    <tr>
+                                        <th> Sn. </th>
+                                        <th>Vriant</th>
+                                        <!-- <th>Project</th>
+                                        <th>Category</th> -->
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>SKU</th>
+                                        <th>Barcode</th>
+                                        <th>Image</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%
+                                        if(data.allVarients.length >= 1){
+                                            data.allVarients.map((element, index)=> {
+                                                %>
+                                                <tr>
+                                                    <td> <%= index+1%> </td>
+                                                    <td> <input type="text" class="" value="<%= element.title%>" ></td>
+                                                    <td>
+                                                        <input type="number" class="small_input"  value="<%= element.price%>" id="price_get_<%= index+1%>" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="small_input"  value="<%= element.inventory_quantity%>" id="inventory_quantity_<%= index+1%>" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="small_input"  value="<%= element.sku%>" id="sku_<%= index+1%>" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="small_input"  value="<%= element.barcode%>" id="barcode_<%= index+1%>" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="file" id="merch_Image_<%= index+1%>" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="hidden" value="<%= element.id%>" id="varient_id_<%= index+1%>" />
+                                                        <button class="btn btn-success" id="varient_btn_id_<%= index+1%>" onclick="updateVariant('<%= index+1%>')" > Update </button>
+                                                    </td>
+                                                </tr>
+                                                <%
+                                            })
+                                        }
+                                    %>
+                                    
+                                </tbody>
+                            </table>
+                            
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+           
+          </div> 
+
+
+    </div>
+  </div>
+  <%- include('./SuperAdminComponent/Footer.ejs') %>
+
+ 
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+
+<script>
+$(document).ready(function(){
+    $('#example_0').DataTable();
+    $(".dashboard_li_view_merch").addClass("active");
+    CKEDITOR.replace('editor_description');
+    $("#row_two").hide();
+
+})
+
+function getMeChange(no){
+    if(no == 1){
+     $("#row_one").show();
+     $("#row_two").hide();
+
+    }else if(no == 2){
+    $("#row_one").hide();
+    $("#row_two").show();
+
+    }
+}
+
+function updateMerch(){
+    $("#save_btn").html("Publishing...")
+    let productId = document.getElementById("pro_id").value;
+    let title = document.getElementById("title").value;
+    let description = CKEDITOR.instances.editor_description.getData();
+
+    console.log({productId,title,description});
+    $.ajax({
+        url:`/admin/merch/upload`,
+        method:"PUT",
+        data: {
+              productId,
+              title,
+              description
+            }, 
+        success:function(result){
+            $("#save_btn").html("Publish")
+
+            console.log(result);
+            if(result.message == "flag1"){
+                alert("Published Successfully!")
+            }
+        }
+          
+    })
+
+}
+function updateVariant(index){
+    //alert(index)
+    $(`#varient_btn_id_${index}`).html("Updating...")
+    let varientid = document.getElementById(`varient_id_${index}`).value;
+    let price = document.getElementById(`price_get_${index}`).value;
+    let quantity = document.getElementById(`inventory_quantity_${index}`).value;
+    let sku = document.getElementById(`sku_${index}`).value;
+    let barcode = document.getElementById(`barcode_${index}`).value;
+    let productId = document.getElementById("pro_id").value;
+
+    var form_data = new FormData();
+
+    form_data.append("varientid", varientid);
+    form_data.append("price", price);
+    form_data.append("quantity", quantity);
+    form_data.append("sku", sku);
+    form_data.append("barcode", barcode);
+    form_data.append("productId", productId);
+    form_data.append("merchImage", $(`#merch_Image_${index}`).prop("files")[0]);
+
+    console.log({
+        varientid,
+        price,
+        quantity,
+        sku,
+        barcode,
+        productId
+    });
+    $.ajax({
+         url: '/artist/merch-variant',
+         type: 'POST',
+         processData: false, // important
+         contentType: false, // important
+         dataType : 'json',
+         data: form_data,
+        //  headers: {
+        //     Authorization : `Bearer ${userValue}`
+        //  },
+         success: function(result){
+             console.log(result);
+             if(result.status == 200){
+                $(`#varient_btn_id_${index}`).html("Update")
+                alert("Updated Successfully!!!")
+             }
+          //   $("#save_btn").html("Saving");
+            
+
+         },
+     });
+
+
+
+}
+</script>

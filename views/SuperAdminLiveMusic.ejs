@@ -1,0 +1,92 @@
+<!-- Sidebar -->
+<%- include('./SuperAdminComponent/Sidebar.ejs') %>
+<!-- Sidebar End -->
+
+<div class="main-panel">
+	<!-- Navbar -->
+  <%- include('./SuperAdminComponent/Header.ejs') %>
+  <!-- End Navbar -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title">Music</h4>
+                <p class="card-category">
+                  <!-- Here is a subtitle for this table -->
+                </p>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table" id="example_0" class="table  " style="width:100%; border: none;" >
+                    <thead class="text-primary">
+                      <th></th>
+    
+                    </thead>
+                    <tbody>
+ 
+                      <% if(data.liveMusic.length >= 1){ 
+                        data.liveMusic.map((element)=>{
+                          %>
+                          <tr>
+                            <td> 
+                              <div class="row music_listing_row" >
+                                <div class="col-4 col-md-1 d-flex justify-content-center" >
+                                  
+                                  <img src="<%=element.MusicImage[0]?.src %>" alt="">
+                                </div>
+                                <div class="col-8 col-md-2 ">
+                                  <p class="font-weight-bold"><%=element.SongTitle %></p>
+                                  <p class="music_id">Song ID:<%=element.ProductID %></p>
+                                  <p class="music_id">Artist: <%=element.ArtistName %></p>
+                                  <p class="music_id">Written <%=element.ArtistName %></p>
+                                </div>
+                                <div class="col-12 col-md-4 d-flex align-items-center">
+                                  <audio src="<%=element.MusicFile %>" id="audio" class="music_audio_tag" controls>audio element not supported</audio>
+                                </div>
+                                <div class="col-6 col-md-2 d-flex align-items-center">
+                                  <% if( element.Published == 1 ) { %>
+                                  <button class="btn  live_badge   "> Live </button>
+                                  <% } else { %>
+                                  <button class="btn  unpublished_badge   "> Draft </button>
+                                  <% } %>
+                                </div>
+                                <div class="col-6 col-md-3 d-flex align-items-center">
+                                  <!-- <a href="" class="view_tbn" > View </a> -->
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          
+                      <% }) } else {  %>
+                        <tr>
+                          <td> 
+                            <p> No Data </p>
+                          </td>
+                        </tr>
+                      <% }%>
+                 
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+         
+        </div>  
+
+
+      </div>
+    </div>
+      <%- include('./SuperAdminComponent/Footer.ejs') %>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $(".live_music_li").addClass("active");
+ 
+    $('#example_0').DataTable();
+})
+</script>

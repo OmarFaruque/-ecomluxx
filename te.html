@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        .container {
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+        }
+
+        .name_user {
+            font-weight: 700;
+        }
+
+        .cent {
+            /* border: 2px solid red; */
+            height: 500px;
+        }
+
+        .card_pa {
+            padding: 40px;
+        }
+
+        .fortegt_bnt {
+            background-color: #28a78f !important;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container AddToCartForm formTools  bg-dark">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-12 text-center mt-4 mb-4">
+                <img src="https://preview.colorlib.com/theme/musico/img/logo.png" alt="artist | Music">
+            </div>
+            <div class="col-md-7 cent">
+                <div class="card card_pa">
+                    <h1 class="h2 name_user "> Hey, Onkar! </h1>
+                    <p> You recently requested to reset your password for Artist | Music account. USe the button below
+                        ti reset it. </p>
+                    <a href="" class="btn btn-success fortegt_bnt"> Reset Your Password </a>
+                    <div class="alert alert-warning mt-4" style="font-size: 15px;" role="alert">
+                        If you have any questions. feel free to email our customer support
+                    </div>
+                    <p style="margin: 0;"> Thanks,</p>
+                    <p>Artist | Music and the Company Team.</p>
+                    <p> If you have trouble with the button above, copy and paste the URL below into your web browser
+                    </p>
+                    <p> <a href=""> htps://oanrkcom </a> </p>
+                </div>
+                <input type="range" value="24" min="1" max="100" oninput="this.nextElementSibling.value = this.value">
+                <output>24</output>
+            </div>
+            <div class="col-md-12">
+                <ul>
+                    <li> </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // AddToCartForm
+    let mmm = $(".AddToCartForm").attr("class");
+    let tool_av = mmm.includes("tool");
+    if (tool_av) {
+        console.log("yes");
+    } else {
+        console.log("no");
+    }
+
+      $.ajax({
+          url:"https://mert-your-ta-front-api-kpklb5e.herokuapp.com/shopify/product/handle",
+          method:"POST",
+          data:{ id: 6628141990094 },
+          success:function(result){
+              console.log("this one", result);
+          }
+      })
+
+
+
+    (async () => {
+        let resp = await fetch('https://mert-your-ta-front-api-kpklb5e.herokuapp.com/shopify/artist/profile');
+        let data = await resp.json();
+        console.log("here i am ", data);
+        let p = { id: 6628141990094 }
+        let url = 'http://localhost:5001/shopify/product/handle';
+
+        
+    })()
+
+
+
+
+
+
+</script>
+
+</html>

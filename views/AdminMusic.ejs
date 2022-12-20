@@ -1,0 +1,95 @@
+<!-- Sidebar -->
+<%- include('./Component/Sidebar.ejs') %>
+<!-- Sidebar End -->
+
+<div class="main-panel">
+	<!-- Navbar -->
+  <%- include('./Component/Header.ejs') %>
+  <!-- End Navbar -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title">Music</h4>
+                <p class="card-category">
+                  <!-- Here is a subtitle for this table -->
+                </p>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table" id="example_0" class="table  " style="width:100%; border: none;" >
+                    <thead class="text-primary">
+                      <th></th>
+    
+                    </thead>
+                    <tbody>
+                      <% if(allMusicData.length >= 1){ 
+                        allMusicData.map((element)=>{
+                          %>
+                          <tr>
+                            <td> 
+                              <div class="row music_listing_row" >
+                                <div class="col-4 col-md-1 d-flex justify-content-center" >
+                                  
+                                  <img src="<%=element.MusicImage[0]?.src%>" alt="">
+                                </div>
+                                <div class="col-8 col-md-2 ">
+                                  <p class="font-weight-bold"><%=element.SongTitle %></p>
+                                  <p class="music_id">Song ID:<%=element.ProductID %></p>
+                                  <p class="music_id">Artist: <%=element.ArtistName %></p>
+                                  <p class="music_id">Written <%=element.ArtistName %></p>
+                                </div>
+                                <div class="col-12 col-md-4 d-flex align-items-center">
+                                  <audio src="<%=element.MusicFile %>" id="audio" class="music_audio_tag" controls>audio element not supported</audio>
+                                </div>
+                                <div class="col-6 col-md-3 justify-content-center d-flex align-items-center">
+                                  <% if( element.Published == 1 ) { %>
+                                  <button class="btn  live_badge   "> Live </button>
+                                  <% } else if( element.Published == 2) { %>
+                                  <button class="btn  unpublished_badge   "> Under Review </button>
+                                  <% } else if( element.Published == 3) { %>
+                                  <button class="btn  unpublished_badge   "> Rejected </button>
+                                  <% } %>
+                                  
+                                </div>
+                                <div class="col-6 col-md-2 d-flex align-items-center">
+                                  <a href="/artist/music/<%=element.ProductID %>" class="view_tbn" > View </a>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          
+                      <% }) } %>
+                      <tr>
+                        <td> 
+                          <!--  -->
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+         
+        </div>  
+
+
+      </div>
+    </div>
+      <%- include('./Component/Footer.ejs') %>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $(".music_li").addClass("active");
+ 
+    $('#example_0').DataTable();
+
+
+
+})
+</script>

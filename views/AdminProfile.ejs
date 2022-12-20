@@ -1,0 +1,205 @@
+<!-- Sidebar -->
+<%- include('./Component/Sidebar.ejs') %>
+<!-- Sidebar End -->
+<div class="main-panel">
+	 <!-- Navbar -->
+   <%- include('./Component/Header.ejs') %>
+   <%
+      let { fullname, artistType, mainGenre, Country, isProRegistered, Styles, StageName, PortfolioLink,FacebookLink,YoutubeLink,WebsiteLink, City, Postalcode, Bio, image  } = userData;
+   %>
+    <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row edit_profile_row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Edit Profile</h4>
+                </div>
+                <div class="card-body">
+                  <!-- <form> -->
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Full Name</label>
+                          <input type="text" value="<%=fullname%>" id="fullname" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Artist Type</label>
+                          <!-- <input type="text" value="<%=artistType%>" id="artistType" class="form-control"> -->
+                          <select name="" id="artistType" class="form-control" >
+                            <%
+                            artistTypee.forEach(element=> {
+                              let selAr = element == artistType ? "selected" : "";
+                              %>
+                              <option  value="<%=element%>" <%=selAr%> ><%=element%></option>
+                              
+                              <%
+                            })
+                            %>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Main Genre</label>
+                          <!-- <input type="text" value="<%=mainGenre%>" id="mainGenre" class="form-control"> -->
+                          <select name="" id="mainGenre" class="form-control" >
+                            <%
+                            genreList.forEach(element=>{
+                              let selected = element == mainGenre ? "selected" : "";
+                              %>
+                              <option  value="<%=element%>" <%=selected%> > <%=element%> </option>
+
+                              <%
+                            })                            
+                            %>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Styles</label>
+                          <input type="text" value="<%=Styles%>" id="artistStyle" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Stage Name</label>
+                          <input type="text" value="<%=StageName%>" id="stageName" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Portfolio Links </label>
+                          <input type="text" value="<%=PortfolioLink%>" id="portfolioLinks" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Facebook Links </label>
+                          <input type="text" value="<%=FacebookLink%>" id="facebookLinks" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Youtube Links </label>
+                          <input type="text" value="<%=YoutubeLink%>" id="youtubeLinks" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Website Links </label>
+                          <input type="text" value="<%=WebsiteLink%>" id="websiteLinks" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Address</label>
+                          <input type="text" value="<%=fullname%>" id="address" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">City</label>
+                          <input type="text" value="<%=City%>" id="cityname" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Country</label>
+                          <!-- <input type="text" value="<%=Country%>" id="country_name" class="form-control"> -->
+                          <select name="" id="country_name" class="form-control" >
+                            <%
+                            countryData.forEach(element=>{
+                              let getSele = element.name == Country ? "selected" : "";
+                              %>
+                              
+                              <option <%=getSele%> value="<%=element.name%>"> <%=element.name%> </option>
+                              <%
+                            })
+                            %>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Postal Code</label>
+                          <input type="text" value="<%=Postalcode%>" id="postalCode" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          
+                          <div class="form-group">
+                            <label class="bmd-label-floating"> Bio</label>
+                            <textarea class="form-control" id="artistBio" rows="2"> <%=Bio%> </textarea>
+                          </div>
+                        </div>
+                      </div>  
+                      <div class="col-md-6">
+                        <div class="">
+                          <label class="">Profile Image</label>
+                          <input type="file" onchange="readURL(this);" accept="image/*" id="profileImage" />
+                          <input type="hidden" value="<%=image%>" id="hid_profile_image" >
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class=""> 
+                          <label class="">Is pro registered ? </label> <br>
+                          <input type="checkbox" id="ispro_registered" <%= isProRegistered ? "checked" : "" %>   />
+                        </div>
+                      </div>
+                    </div>
+                    <input type="submit" value="Update Profile" onclick="submitTest()" id="update_btn_profile" class="btn btn-primary pull-right" /> 
+                    <div class="clearfix"></div>
+                  <!-- </form> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card card-profile">
+                <div class="card-avatar" style="background: #FFFF;">
+                  <a href="#pablo">
+                    <img class="img" id="img_prev_me" style="height:126px" src="<%= image ? image : "/images/admin/raw_user.png"%>" />
+                  </a>  
+                </div>
+                <div class="card-body">
+                  <h6 class="card-category">Music / Artist</h6>
+                  <h4 class="card-title"><%=fullname%></h4>
+                  <p class="card-description" id="bio_user  " >
+                    <!-- <%=fullname %> -->
+                    <!-- <%= JSON.stringify(userData) %> -->
+                  </p>
+                  <!-- <a href="#pablo" class="btn btn-primary btn-round">Share</a> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%- include('./Component/Footer.ejs') %>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+  
+  $(document).ready(function(){
+    $(".profile_li").addClass("active");
+    
+  })
+  
+</script>
+<script src="/javascripts/AdiminJs/profile.js"></script>

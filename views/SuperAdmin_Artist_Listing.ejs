@@ -1,0 +1,175 @@
+<!-- Sidebar -->
+<%- include('./SuperAdminComponent/Sidebar.ejs') %>
+<!-- Sidebar End -->
+
+<div class="main-panel">
+	 <!-- Navbar -->
+   <%- include('./SuperAdminComponent/Header.ejs') %>
+
+    <!-- End Navbar -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title">All Artist</h4>
+                            <p class="card-category">
+                                <!-- Here is a subtitle for this table -->
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <%
+                            let  allArtist  = data.allArtist
+
+                            %>
+                            <!-- <%= allArtist%> -->
+                            <div class="table-responsive">
+                                <table class="table" id="example_1" class="table  " style="width:100%; border: none;" >
+                                    <thead class="text-primary">
+                                        <tr>
+                                            <th>Sn</th>
+                                            <th>Profile</th>
+                                            <th>Name</th>
+                                            <th>Country</th>
+                                            <th>Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%
+                                            if(allArtist.length >= 1){
+                                                allArtist.map((element, index) => {
+                                                    let { fullname, Country, image, Date, VendorId} = element;
+                                                    let finImage = image ? image : "/images/admin/raw_user.png"
+                                        %>
+                                                    <tr>
+                                                        <td><%=index+1%></td>
+                                                        <td> <img src="<%=finImage%>" alt="no_image" height="50" width="50" style="border-radius:50%;background: #FFF;" alt=""> </td>
+                                                        <td><%=fullname %></td>
+                                                        <td><%=Country %></td>
+                                                        <td><%=Date%></td>
+                                                        <td> <input type="hidden" id="vander_id_<%=index%>" value="<%=VendorId%>" /> <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal11" onclick="getVendorData('<%=index%>')" > View </button> </td>
+                                                    </tr>
+                                        <%
+                                                })
+                                            }
+                                        %>
+                                        
+                         
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+
+        </div>
+    </div>
+      <%- include('./SuperAdminComponent/Footer.ejs') %>
+
+      <!-- Artist-Profile-Modal -->
+    <div class="modal fade" id="exampleModal11" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="" class="user_head_1" > Full Name </label>
+                        <p class="user_sub_value" id="user_admin_name" > Onkar Haldar </p>  
+                    </div>
+                    <div class="col-6">
+                        <img src="" id="user_admin_image" style="background: #f0efef;" class="super_adimin_userimage" height="70" width="70" alt="no_img">
+                    </div>
+                    <div class="col-6">
+                        <label for="" class="user_head_1" > Artist Type</label>
+                        <p class="user_sub_value" id="user_admin_artist_type" > Main </p>  
+                    </div>
+                    <div class="col-6">
+                        <label for="" class="user_head_1" >Stage Name</label>
+                        <p class="user_sub_value" id="user_admin_stage_name" > Europe </p>  
+                    </div>
+                     <div class="col-6">
+                        <label for="" class="user_head_1" > Portfolio Link</label>
+                        <p class="user_sub_value" > <a href="" style="color: rgb(7, 153, 211); text-decoration: underline;" id="user_port_links" target="_blank" > Go To Link </a> </p>  
+                    </div>
+                     <div class="col-md-6">
+                        <label for="" class="user_head_1" > Address </label>
+                        <p class="user_sub_value" id="user_admin_adderss" > </p>  
+                    </div>
+                    <div class="col-6">
+                        <label for="" class="user_head_1" >City</label>
+                        <p class="user_sub_value" id="artist_city" > Delhi </p>  
+                    </div>
+                    <div class="col-6">
+                        <label for="" class="user_head_1" >Country</label>
+                        <p class="user_sub_value" > India </p>  
+                    </div>
+                    <div class="col-6">
+                        <label for="" class="user_head_1" >Postal Code</label>
+                        <p class="user_sub_value" id="post_user" >  </p>  
+                    </div>
+                    <div class="col-12">
+                        <label for="" class="user_head_1" >Bio</label>
+                        <p class="user_sub_value" id="user_bui" >  </p>  
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+        </div>
+        </div>
+    </div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $(".all_artist_li").addClass("active");
+    $('#example_1').DataTable();
+
+})
+
+async function getVendorData (sn){
+    let Vendor_id_get = $(`#vander_id_${sn}`).val();
+    let vendData = await fetch( `/admin/artist/profile` ,{
+        method:"POST",
+        headers: {
+            'Content-Type': 'application/json'
+    },
+        body:JSON.stringify({vendor_id:Vendor_id_get})
+    })
+    let vendordata = await vendData.json();
+    if(vendordata.message == "flag1"){
+        let { data } = vendordata;
+        let { Address, Bio, City,Country,Email,PortfolioLink,Postalcode,StageName,Styles,artistType,fullname,image, isProRegistered, mainGenre} = data;
+          console.log(data);
+          document.getElementById("user_admin_image").src = image ? image : `/images/admin/raw_user.png`;
+          document.getElementById("user_admin_name").innerHTML = fullname;
+          document.getElementById("user_admin_artist_type").innerHTML = artistType;
+          document.getElementById("user_admin_stage_name").innerHTML = StageName;
+          document.getElementById("user_admin_adderss").innerHTML = Address;
+          document.getElementById("artist_city").innerHTML = City;
+         document.getElementById("post_user").innerHTML = Postalcode;
+         document.getElementById("user_bui").innerHTML = Bio;
+         document.getElementById("user_port_links").href = PortfolioLink
+
+
+
+    }
+
+
+    $("#exampleModalLabel").html(Vendor_id_get);
+}
+</script>

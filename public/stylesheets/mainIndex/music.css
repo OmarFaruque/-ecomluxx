@@ -1,0 +1,264 @@
+*{
+    margin:0;
+    padding: 0;
+    font-family: 'Josefin Sans', sans-serif !important;
+}
+
+body{
+    font-family: 'Josefin Sans', sans-serif;
+}
+.header{
+    height: 650px;
+    background: url("/images/mainIndex/main-bg-image.jpg") center center  ;
+    background-size: cover;
+    /* background: linear-gradient(0deg,#2b2d3a 10%,transparent); */
+
+}
+.form-control{
+    background-image: none !important;
+}
+.header .navbar{
+    /* height: 70px; */
+    /* border: 2px solid wheat; */
+    /* position: sticky;
+    top: 0; */
+}
+.header .navbar ul{
+    list-style: none;
+    display: flex;
+    line-height: 70px;
+    padding-left: 20px;
+}
+.header .navbar ul li img{
+    padding-top: 15px;
+}
+.media-content{
+    position: absolute;
+    height: 650px;
+    background: linear-gradient(0deg,#2b2d3a 10%,transparent);
+    z-index: 2;
+}
+.heading h1{
+    /* height: 250px; */
+    /* border: 2px solid wheat; */
+    color: #fff;
+    font-weight: 700;
+    font-size: 4rem;
+} 
+.header .hero-nav .heading{
+    text-align: center;
+    /* border: 2px solid wheat; */
+    width: 60%;
+    margin: 100px auto 50px auto ;
+}
+.header .hero-nav .form-buttons{
+   display: flex;
+   justify-content: center;
+}
+.form-buttons .btnns{
+    padding: 15px 28px;
+    border-radius: 2px;
+    border: none;
+    background: #c02afe linear-gradient(90deg,#c02afe,#562afe);
+    color: #FFF;
+    margin-left: 10px;
+    cursor: pointer;
+    outline: none;
+    font-size: 1rem;
+    font-family: 'Josefin Sans', sans-serif;
+}.form-buttons .btnns1{
+    padding: 15px 28px;
+    border-radius: 2px;
+    border: 2px solid #FFF;
+    background:none;
+    color: #FFF;
+    margin-left: 10px;
+    cursor: pointer;
+    outline: none;
+    font-size: 1rem;
+    font-family: 'Josefin Sans', sans-serif;
+
+}
+.artist_hero{
+    height: 300px;
+    color: white;
+    background-color: #1a1b22;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.artist_hero .artist_head{
+    margin-bottom: 30px;
+}
+.artist_hero .attist_para{
+    margin-bottom: 30px;
+    text-align: center;
+}
+.exp:hover{
+    background-color: #FFF;
+    transition: .2s;
+    color: black !important;
+}
+.footer{
+    height: 350px;
+    color: white;
+    /* border: 2px solid #FFF; */
+    border-top: 1px solid rgb(136, 136, 136) !important;
+    background-color: #1a1b22;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.footer .servises{
+    width: 40%;
+    /* border: 1px solid #FFF; */
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.footer .servises .form_services{
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.footer .contact_us{
+    width: 40%;
+    /* border: 1px solid #FFF; */
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.subscribe_btn{
+    padding: 15px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #a0a0a0;
+    outline: none;
+    color: #FFF;
+    width: 60%;
+
+}
+.servises h2{
+    display: flex;
+}
+.subs_btn{
+    padding: 15px 28px;
+    border-radius: 2px;
+    border: none;
+    background: #c02afe linear-gradient(90deg,#c02afe,#562afe);
+    color: #FFF;
+    margin-left: 10px;
+    cursor: pointer;
+    outline: none;
+    font-size: 1rem;
+    font-family: 'Josefin Sans', sans-serif;
+}
+.contact_us .cantact_list ul{
+    list-style: none;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.contact_us h2{
+    align-items: flex-start;
+    display: flex;
+}
+.contact_us .cantact_list ul li{
+    padding-top: 12px;
+}
+/* MODEL Css*/
+.w3-modal{
+    background-color: #00000099 !important;
+}
+.w3-modal-content {
+    width: 650px;
+}
+.model_header{
+    /* background-color: #1a1b22; */
+}
+.w3-container h1{
+    text-align: center;
+}
+.closemodel_signUp{
+    color: #FFF;
+}
+.w3-modal-content {
+    background-color: #203146;
+    color: #FFFF;
+}
+.w3-container, .w3-panel {
+    padding: 0.7em 16px;
+}
+.form_signup_conatiner{
+    margin-top: 20px;
+}
+.form_signup_conatiner input{
+    background:none;
+    color: #FFFF;
+    font-size: 19px;
+    border-radius: 0;
+}
+.form_signup_conatiner input:focus{
+    background: none;
+    color: #FFFF;
+}
+.model_footer1{
+    background-color: black;
+}
+.signupbtn input:hover{
+    background-color: #FFF;
+    color: black;
+    transition: .2s;
+}
+.closemodel_signUp{
+    padding: 4px 13px;
+    position: relative;
+    float: right;
+    top: -25px;
+    right: -30px;
+    background: #6f1239;
+    border-radius: 50%;
+}
+.model_header h2{
+    text-align: center;
+}
+.featured_artist{
+  background-color: #1a1b22;
+  padding-top: 70px;
+}
+.featured_art{
+    text-align: center;
+    color: #fff;
+    margin-bottom: 50px;
+}
+
+/* End Model */
+@media (max-width:786px){
+    .header{
+        height: 550px;
+    }
+    .heading h1{
+        font-size: 2.5rem;
+    }
+    .footer{
+        flex-direction: column;
+        padding: 25px;
+    }
+    .footer .servises{
+        width: 100%;
+        height: auto !important;
+      
+    }
+    .footer .contact_us{
+        width: 100%;
+        height: auto !important;
+     
+    }
+    .subscribe_btn {
+        width: 40%;
+    }
+    
+}
