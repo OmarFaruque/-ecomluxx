@@ -12,7 +12,7 @@
 // {
 //    for(var x  = 0; x < 10; x++){
 
-//     let a = await  wait_promise(3000); 
+//     let a = await   wait_promise(3000); 
 //     console.log(a);
 //    }
 // }
