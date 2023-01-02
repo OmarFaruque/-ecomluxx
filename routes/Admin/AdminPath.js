@@ -149,7 +149,6 @@ router.get("/merch", loginCheck, async (req, res) => {
   let isSecure = req.session.secureRoute;
   let vendorId = await getVenderId(isSecure)
   let getMerchData = await getMerchDataView(vendorId);
-  console.log('merch: ', getMerchData)
   res.render("Admin_Merch_List", { getMerchData })
 
 })
