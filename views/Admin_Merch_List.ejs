@@ -50,7 +50,7 @@
                                   <tr>
                                     <td> <%= index+1 %> </td>
                                     <td>
-                                      image
+                                      <img src="<%= element.image[0] %>" height="50" alt="">
                                     </td>
                                     <td><%= element.title%></td>
                                     <td>
@@ -83,7 +83,7 @@
                                 </tbody>
                             </table>
                             
-                            <%= JSON.stringify(getMerchData)%>
+                            <!-- <%= JSON.stringify(getMerchData)%> -->
                             
                         </div>
                     </div>
