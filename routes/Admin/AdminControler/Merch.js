@@ -267,7 +267,8 @@ exports.variantUpdate = async(req,res)=> {
     console.log(error)
     res.status(200).json({
       status:400,
-      message:"flag0"
+      message:"flag0", 
+      error: error
     })
   }
 }
