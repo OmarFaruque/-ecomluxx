@@ -1,5 +1,5 @@
 // Song Upload Api Called Here
-console.log(userValue);
+
 $("#songUploadBtn").click(function(){
     let firstValidation  = first_form_err();
     let thirdValidation =  third_form_err();
@@ -16,6 +16,9 @@ $("#songUploadBtn").click(function(){
 
    
 
+     let license_prices = $('input[name="variant_prices[]"]').map(function(){return $(this).val()}).get();
+     
+
      for (var i = 0; i < Moodcheckboxes.length; i++) {
          Mood.push(Moodcheckboxes[i].value)
      }
@@ -23,9 +26,6 @@ $("#songUploadBtn").click(function(){
          Theme.push(Themecheckboxes[i].value)
      }
 
-     // console.log(Theme);
-     // console.log(Mood);
-     // console.log(VocalType);
 
      let imagesAll = $("#Song_Image").prop("files");
      console.log([...imagesAll]);
@@ -42,6 +42,7 @@ $("#songUploadBtn").click(function(){
      form_data.append("Theme", Theme.join());
      form_data.append("Mood", Mood.join());
      form_data.append("Lyrics", Lyrics);
+     form_data.append("license_prices", license_prices.join());
      [...imagesAll].map((item, i)=>{
         form_data.append(`SongImage${i}`, item);
      })
@@ -58,10 +59,9 @@ $("#songUploadBtn").click(function(){
             Authorization : `Bearer ${userValue}`
          },
          success: function(result){
-             console.log(result);
+            console.log('result is: ', result)
              if(result.message == "flag1"){
-                 alert("Music Uploaded please edit the amount of license !")
-                 
+                location.reload();
              }
              $("#songUploadBtn").html(`Upload`);
 

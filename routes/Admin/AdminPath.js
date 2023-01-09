@@ -153,6 +153,8 @@ router.get("/merch", loginCheck, async (req, res) => {
 
 })
 router.get("/merch/:id?", loginCheck, async (req, res) => {
+
+  console.log('omar admin test');
   // let isSecure = req.session.secureRoute;
   // var decoded = await jwt.verify(isSecure, process.env.JWT_SECRET_KEY);
   // let { VendorId, email} = decoded;

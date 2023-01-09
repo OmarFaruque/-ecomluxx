@@ -9,12 +9,22 @@ var app = express();
 var session = require('express-session');
 const mongoose = require('mongoose');
 
+
 mongoose.connect(process.env.MONGODB_URL,{useNewUrlParser: true,useUnifiedTopology: true,useFindAndModify:false});
+
+// Test mongos connection 
+// mongoose.connection.on('connected', () => {
+//   console.log('connected');
+//   console.log(mongoose.connection.readyState); //logs 1
+// });
 
 // Shopifywebsite routes
 let shopifyWebsiteApi = require("./routes/ShopifyWebsiteApi/ShopifyWebsitesApi");
+
 // Shopifywebsite routes end 
 /*
+
+
 *Index Routes
 */
 let indexRouter = require("./routes/index");
@@ -112,6 +122,7 @@ app.use((error,req,res,next)=>{
 // error end
 // error handler
 app.use(function(err, req, res, next) {
+  console.log('in local')
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

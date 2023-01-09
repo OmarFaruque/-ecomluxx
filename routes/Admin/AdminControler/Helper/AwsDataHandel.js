@@ -28,10 +28,10 @@ exports.aswInsertFile = async (fileValue) => {
     return result;
 
   } catch (err) {
-    console.error(err);
+    
     // res.status(200).json({
     //   message:"flag0"
     // }) 
-    return "Error in image insert music.js file admin side !"
+    return "Error in image insert music.js file admin side! " + err 
   }
 };

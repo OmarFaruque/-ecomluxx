@@ -8,15 +8,16 @@ const jwt = require("jsonwebtoken");
 
 exports.MusicUpload = async (req, res) => {
   try {
-    console.log(req.body);
-    console.log(req.files);
 
     let isSecure = req.session.secureRoute;
     var decoded = await jwt.verify(isSecure, process.env.JWT_SECRET_KEY);
     let { VendorId, email } = decoded;
-    let { SongTitle, RecordingYear, ReleaseDate, Country, ArtistRole, ArtistName, SongPricing, Theme, Mood, Lyrics } = req.body;
+    let { SongTitle, RecordingYear, ReleaseDate, Country, ArtistRole, ArtistName, SongPricing, Theme, Mood, Lyrics, license_prices } = req.body;
 
     let tagCreate = [...Theme.split(","), ...Mood.split(",")];
+
+    //REvert join for license price 
+    license_prices = license_prices.split(",")
     // // //console.log(tagCreate);
     let ImageValue = req.files;
     let MusicValue = req.files.SongFile[0];
@@ -58,27 +59,27 @@ exports.MusicUpload = async (req, res) => {
         "variants": [
           {
             "option1": "Buy mp3",
-            "price": SongPricing
-          },
-          {
-            "option1": "Exclusive",
-            "price": SongPricing
+            "price": license_prices[0] && license_prices[0] != '' ? license_prices[0] : SongPricing
           },
           {
             "option1": "Non-exclusive",
-            "price": SongPricing
+            "price": license_prices[1] && license_prices[1] != '' ? license_prices[1] : SongPricing
+          },
+          {
+            "option1": "Exclusive",
+            "price": license_prices[2] && license_prices[2] != '' ? license_prices[2] : SongPricing
           },
           {
             "option1": "TV/FILM",
-            "price": SongPricing
+            "price": license_prices[3] && license_prices[3] != '' ? license_prices[3] : SongPricing
           },
           {
             "option1": "free download",
-            "price": SongPricing
+            "price": license_prices[4] && license_prices[4] != '' ? license_prices[4] : SongPricing
           },
           {
             "option1": "Royalty free",
-            "price": SongPricing
+            "price": license_prices[5] && license_prices[5] != '' ? license_prices[5] : SongPricing
           },
 
         ],
@@ -117,12 +118,13 @@ exports.MusicUpload = async (req, res) => {
     //  console.log(productCreate.data);
     console.log("++++++++++++++++++++++++")
     res.status(200).json({
-      message: "flag1"
+      message: "flag1", 
     })
   } catch (error) {
     console.log(error);
     res.status(200).json({
-      message: "flag0"
+      message: "flag0", 
+      error: error
     })
   }
 

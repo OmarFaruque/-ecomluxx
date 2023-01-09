@@ -233,7 +233,7 @@ function updateVariant(index){
     form_data.append("productId", productId);
     form_data.append("merchImage", $(`#merch_Image_${index}`).prop("files")[0]);
 
-    console.log({
+    console.log('omar4:', {
         varientid,
         price,
         quantity,
@@ -248,9 +248,9 @@ function updateVariant(index){
          contentType: false, // important
          dataType : 'json',
          data: form_data,
-        //  headers: {
-        //     Authorization : `Bearer ${userValue}`
-        //  },
+         headers: {
+            Authorization : `Bearer ${userValue}`
+         },
          success: function(result){
              console.log(result);
              if(result.status == 200){

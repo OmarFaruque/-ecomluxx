@@ -10,6 +10,7 @@
 <%
  let { productData } = data;
 %>
+
    <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -17,6 +18,7 @@
               <div class="card">
                 <div class="card-header d-flex card-header-primary">
                   <h4 class="card-title mt-2 mr-3">Edit Merch</h4>
+                  <!-- <%= JSON.stringify(productData) %> -->
                   <ul class="nav nav-tabs" data-tabs="tabs">
                     <li class="nav-item">
                       <a class="nav-link active" href="#profile" onclick="getMeChange(1)" data-toggle="tab">
@@ -251,14 +253,7 @@ function updateVariant(index){
     form_data.append("productId", productId);
     form_data.append("merchImage", $(`#merch_Image_${index}`).prop("files")[0]);
 
-    console.log({
-        varientid,
-        price,
-        quantity,
-        sku,
-        barcode,
-        productId
-    });
+    console.log('omar2:', $(`#merch_Image_${index}`).prop("files")[0]);
     $.ajax({
          url: '/artist/merch-variant',
          type: 'POST',
@@ -270,15 +265,16 @@ function updateVariant(index){
         //     Authorization : `Bearer ${userValue}`
         //  },
          success: function(result){
-             console.log(result);
+             console.log('resultomar: ', result);
              if(result.status == 200){
                 $(`#varient_btn_id_${index}`).html("Update")
                 alert("Updated Successfully!!!")
              }
           //   $("#save_btn").html("Saving");
-            
-
          },
+         error: function(error){
+            console.log('this is error: ', error.responseJSON);
+         }
      });
 
 

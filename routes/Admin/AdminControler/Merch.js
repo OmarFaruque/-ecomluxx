@@ -203,6 +203,13 @@ exports.getMerchDataView = async(VenderId)=> {
   }
 }
 
+
+/**
+ * Product varient upload to shopify app
+ * 
+ * @param {request} req 
+ * @param {array} res 
+ */
 exports.variantUpdate = async(req,res)=> {
   try{
     let {   
@@ -213,7 +220,11 @@ exports.variantUpdate = async(req,res)=> {
       sku,
       barcode } = req.body;
       
+    
+    
     let ImageValue = req.files?.merchImage ? req.files?.merchImage[0] : null;
+
+
     let productJsonData = {
           "variant": {
             "id": varientid,
@@ -222,34 +233,34 @@ exports.variantUpdate = async(req,res)=> {
             "barcode":barcode
           }
         }
+
+    
+    
     if(ImageValue){
-      console.log(ImageValue);
-     let awsImageResult = await aswInsertFile(ImageValue);
-     let imageUpdate = await axios({
-       url:`${process.env.Shopify_API_Header}/products/${productId}/images.json`,
-       method:"POST",
-       data:{
-        "image": {
-          "src":awsImageResult.Location
+      let awsImageResult = await aswInsertFile(ImageValue);
+      let imageUpdate = await axios({
+        url:`${process.env.Shopify_API_Header}/products/${productId}/images.json`,
+        method:"POST",
+        data:{
+          "image": {
+            "src":awsImageResult.Location
+          }
         }
-      }
-     })
-     productJsonData.variant.image_id = await imageUpdate.data.image.id;
+      })
+      
+    //  productJsonData.variant.image_id = await imageUpdate.data.image.id;
      //console.log(imageUpdate.data)
     }else{
       console.log("no - image");
     }
-
-
-    console.log(productJsonData);
-
       let updateVariant = await axios({
         url:`${process.env.Shopify_API_Header}/variants/${varientid}.json`,
         method:"PUT",
         data:productJsonData
       })
 
-      console.log("variant-Update=>", updateVariant.data);
+      
+
       let updateQuantity = await axios({
         url:`${process.env.Shopify_API_Header}/inventory_levels/set.json`,
         method:"POST",
@@ -259,12 +270,13 @@ exports.variantUpdate = async(req,res)=> {
           "available": quantity
         }
       })
+
       res.status(200).json({
         status:200,
-        message:"flag1"
+        message:"flag1",
+        testmsg: 'success omar'
       })
   }catch(error){
-    console.log(error)
     res.status(200).json({
       status:400,
       message:"flag0", 
