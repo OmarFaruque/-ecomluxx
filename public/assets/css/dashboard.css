@@ -7,7 +7,16 @@
 p, h3{
     
 }
-
+body.dark-edition .main-panel{
+    background-color: #fafafa;
+}
+.dark-edition .card.bg-light-gray{
+    background-color: lightgray;
+    border-color: #5744cf;
+    border-width: 1px;
+    border-style: solid;
+    box-shadow: 3px 3px 0.5em #999;
+}
 .we-800{
     font-weight: 800;
     letter-spacing: 2px;
@@ -300,3 +309,71 @@ bottom: 2px;
     }
 }
 select option { color: black; }
+
+
+/* HEro section */
+.hero-image {
+    position: absolute;
+    right: -110px;
+    top: 0;
+    width: 53%;
+    z-index: 1;
+    padding: 0 0 7px 7px;
+    transform: rotate(-16deg);
+}
+.rectangle-shape {
+    position: absolute;
+    transform: rotate(-16deg);
+    z-index: -1;
+    background: #4c38cb;
+}
+
+.rectangle-shape.shape-1 {
+    width: 224px;
+    height: 190px;
+    left: -17px;
+    top: -168px;
+    border-radius: 43px;
+}
+.rectangle-shape.shape-2 {
+    width: 121px;
+    height: 103px;
+    left: -160px;
+    top: 61px;
+    border-radius: 32px;
+}
+.rectangle-shape.shape-3 {
+    width: 86px;
+    height: 73px;
+    left: -112px;
+    top: 260px;
+    border-radius: 21px;
+}
+.rectangle-shape.shape-4 {
+    width: 86px;
+    height: 73px;
+    left: -357px;
+    top: 320px;
+    border-radius: 21px;
+    background-color: #422ec7;
+}
+header.header:after {
+    position: absolute;
+    width: 200%;
+    top: 0;
+    bottom: 0;
+    left: -100%;
+    content: "";
+    transform: skew(0,350deg);
+    background-color: #5744cf;
+}
+.sidebar:after {
+    position: absolute;
+    width: 200%;
+    top: 0;
+    bottom: 0;
+    left: -100%;
+    content: "";
+    transform: skew(0,350deg);
+    background-color: #5744cf;
+}

@@ -36,6 +36,7 @@ let signupBtnPost = document.getElementById("signUpBtn");
       signupBtnPost.addEventListener("click", async function(){
       let isRegistered = document.getElementById("isProRegistered").checked;
       let termsandconditions = document.getElementById("termsandconditions").checked;
+      let signupFormWrap = document.getElementById('id01');
 
       var fullname = document.getElementById("fullname").value;
       let artistType = document.getElementById("airtistType").value;
@@ -76,13 +77,13 @@ let signupBtnPost = document.getElementById("signUpBtn");
                 }
                 if(result.message == "flag1"){
                      $(".signUpError").html("New Artist Created Successfully !")
+                     signupFormWrap.style.display = 'none';
                       makeEmpty();
-
-             }
-             if(result.message == "flag0"){
-                $(".signUpError").html("Please fill all the fields !")
-             }
-             signupBtnPost.value = "Sign Up";       
+                }
+                if(result.message == "flag0"){
+                    $(".signUpError").html("Please fill all the fields !")
+                }
+                signupBtnPost.value = "Sign Up";       
 
          }
      })

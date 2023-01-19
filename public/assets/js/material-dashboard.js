@@ -161,7 +161,13 @@ md = {
     image_src = $sidebar.data('image');
 
     if (image_src !== undefined) {
-      sidebar_container = '<div class="sidebar-background" style="background-image: url(' + image_src + ') "/>';
+      sidebar_container = '<!-- Hero Secton BG -->'
+      +'<div class="hero-image">'
+       +'<div class="rectangle-shape shape-1"></div>'
+       +'<div class="rectangle-shape shape-2"></div>'
+       +'<div class="rectangle-shape shape-3"></div>'
+       +'<div class="rectangle-shape shape-4"></div>'
+     +'</div>';
       $sidebar.append(sidebar_container);
     }
   },
