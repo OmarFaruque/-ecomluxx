@@ -54,7 +54,7 @@
                                             <input type="file"  style="width: 100%;" name="" id="merch_Image" accept=".jpg" multiple />
                                         </div>
                                         <div class="col-md-6">
-                                            <img src="/images/admin/logo2.png" height="100" width="100" alt="noImage" />
+                                            <img src="/images/admin/logo2.png" class="img-fluid" alt="noImage" />
                                         </div>
                                         <!-- <div class="col-md-6">
                                             <label for="">Price</label>
@@ -76,8 +76,9 @@
                                         </div>
                                         <div class="col-md-12" id="options_div">
                                             <h4>OPTIONS</h4>
-                                            <ul id="options_hold">
-                                                <li id="options_parent_1">
+                                            <ul id="options_hold" class="m
+                                            p-0">
+                                                <li class="d-flex align-items-center" id="options_parent_1">
                                                     <p>Option</p>
                                                     <input type="text" id="option_1" class="option_me" />
                                                     <input type="text" placeholder="Seprate with a comma"
@@ -139,7 +140,7 @@
             if (ind > 2) {
                 this.style.display = 'none';
             }
-            let htmlValue = `<li id="options_parent_${ind}"  >
+            let htmlValue = `<li class="d-flex align-items-center" id="options_parent_${ind}"  >
                     <p>Option </p>
                     <input type="text" id="option_1" class="option_me" />
                     <input type="text" placeholder="Seprate with a comma" id="option_1_value" class="option_me_value"  />  

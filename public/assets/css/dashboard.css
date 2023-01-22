@@ -272,7 +272,7 @@ bottom: 2px;
     width: 250px;
 }
 .option_remove{
-    padding: 7px 21px;
+    padding: 6px 21px;
 }
 .add_another_btn{   
     border: none;
@@ -376,4 +376,12 @@ header.header:after {
     content: "";
     transform: skew(0,350deg);
     background-color: #5744cf;
+}
+
+
+ul#options_hold li p{
+    margin: 0;
+}
+ul#options_hold li {
+    gap: 8px;
 }
