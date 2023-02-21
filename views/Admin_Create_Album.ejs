@@ -20,9 +20,19 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="row p-4" id="row_two">
-                                            <div class="col-md-12 form-group">
-                                                <label for=""> Album name </label>
-                                                <input type="text" class="form-control" name="" id="albumname">
+                                            <div class="d-flex w-100 gap-3">
+                                                <div class="w-100 form-group">
+                                                    <label for=""> Album name </label>
+                                                    <input type="text" class="form-control" name="" id="albumname">
+                                                </div>
+                                                
+                                                <div class="w-100 form-group-file">
+                                                    <label for="album_art">Album Art</label>
+                                                    <input multiple type="file" class="w-100 form-control-file" name="album_art" id="album_art" accept=".jpg" placeholder="album_art" >
+                                                    <!-- <input type="file"  style="width: 100%;" name="" id="merch_Image" accept=".jpg" multiple /> -->
+                                                    
+                                                </div>
+                                                
                                             </div>
                                             <div class="col-md-12 form-group">
 
@@ -57,15 +67,27 @@
         createBtn.addEventListener("click", function () {
             createBtn.innerHTML = "Creating....";
             const albumname = document.getElementById("albumname").value;
-            // console.log(albumname);
+
+            var form_data = new FormData();
+
+            form_data.append("albumname", albumname);
+            
+            let imagesAll = $("#album_art").prop("files")[0];
+            form_data.append('album_art', imagesAll)
+
+            
+
+
+            console.log('album is: ', imagesAll);
             $.ajax({
                 url: "/artist/create/album",
-                method: "POST",
-                data: {
-                    albumname
-                },
+                type: "POST",
+                processData: false, // important
+                contentType: false, // important
+                dataType : 'json',
+                data: form_data,
                 success: function (result) {
-                  //  console.log(result);
+                    console.log('result is: ', result)
                     createBtn.innerHTML = "Create";
                     document.getElementById("albumname").value = "";
                     if (result.message == 'flag1') {

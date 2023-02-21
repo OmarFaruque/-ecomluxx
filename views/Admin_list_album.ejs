@@ -7,9 +7,6 @@
 <div class="main-panel">
 	 <!-- Navbar -->
    <%- include('./Component/Header.ejs') %>
-<%
-
-%>
    <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -31,8 +28,9 @@
                             <table class="table" id="example_0" class="table  " style="width:100%; border: none;" >
                                 <thead>
                                     <tr>
-                                        <th> Sn. </th>
+                                        <th></th>
                                         <th>Album Name</th>
+                                        <th>Images</th>
                                         <th>Id</th>
                                     </tr>
                                 </thead>
@@ -40,10 +38,14 @@
                                     <%
                                     albu.map(item=>{
                                         %>
-                                      
                                         <tr>
-                                            <td>1</td>
+                                            <td></td>
                                             <td><%=item?.albumName%></td>
+                                            <td>
+                                                <% if(item.albumArt[0] && item.albumArt[0].src){ %>
+                                                    <img style="max-width: 50px;" src="<%= item.albumArt[0]?.src %>" />
+                                                <% } %>
+                                            </td>
                                             <td><%=item?.collectionId%></td>
                                         </tr>
                                         <%

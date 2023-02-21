@@ -1,20 +1,45 @@
 require("dotenv").config();
 const albumModel = require("../../../Models/AdminModel/album");
+let { aswInsertFile } = require("./Helper/AwsDataHandel");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 
 exports.createAlbum = async (req, res) => {
     try {
         let { albumname } = req.body;
+        let {album_art} = req.files;
         let isSecure = req.session.secureRoute;
         var decoded = await jwt.verify(isSecure, process.env.JWT_SECRET_KEY);
         let { VendorId, email } = decoded;
+
+        //process images
+        let ImageValue = req.files;
+        let allObj = []
+        for (va in ImageValue) {
+            allObj.push(ImageValue[va][0]);
+        }
+
+        var promises = [];
+        for (var i = 0; i < allObj.length; i++) {
+          var file = allObj[i];
+          promises.push(aswInsertFile(file));
+        }
+        let allImage = await Promise.all(promises);
+
+        let allImagedata = allImage.map(item => {
+            return { src: item.Location }
+        })
+
+        // console.log('all image: ', allImage)
+
+
         let { data: { smart_collection } } = await axios({
             url: `${process.env.Shopify_API_Header}/smart_collections.json`,
             method: "POST",
             data: {
                 "smart_collection": {
                     "title": albumname,
+                    "images": allImagedata,
                     "rules": [{
                         "column": "tag",
                         "relation": "equals",
@@ -32,11 +57,13 @@ exports.createAlbum = async (req, res) => {
         await albumModel.create({
             VenderId: VendorId,
             albumName: albumname,
-            collectionId: id
+            collectionId: id, 
+            albumArt: allImagedata
         })
       //  console.log(smart_collection);
         res.status(200).json({
             message: "flag1",
+            files: album_art,
             smart_collection
         })
     } catch (error) {

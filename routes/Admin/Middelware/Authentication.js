@@ -6,9 +6,9 @@ exports.loginCheck = async (req,res,next) => {
    console.log(isSecure)
    if(isSecure){
       var decoded = await jwt.verify(isSecure, process.env.JWT_SECRET_KEY);
-      console.log("yesss");
-      console.log(decoded)
-      console.log("yesss");
+      // console.log("yesss");
+      // console.log(decoded)
+      // console.log("yesss");
       req.body.user = decoded;
      return  next();
    }else{

@@ -24,6 +24,11 @@
     }
  %>
    <!--  -->
+   
+    
+   
+   
+   
       <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -248,15 +253,24 @@
                                 <input type="file" id="Song_Mp3_File" class="form-control" name="artist_song" accept=".mp3" >
                                 <input type="hidden" value="<%=MusicFile%>" id="music_urldata" >
                             </div>
-                            <div class="col-md-12">
-                                <label class="">Album Name <span class="text-danger"> *</span></label> 
-                                <input type="text"  class="form-control" value="<%=Tag%>" id="tag_mus" >
+                            <div class="col-md-12 mt-4">
+                                <div class="form-group">
+                                    <label class="">Album Name<span class="text-danger"> *</span></label>
+                                    <!-- <input type="text"  class="form-control" value="<%=Tag%>" id="tag_mus" > -->
+                                    <select class="form-control" name="tag_mus" id="tag_mus">
+                                        <option value="">Select Album Name</option>
+                                        <% albu.map(item=>{ %>
+                                            <option <%= (item.albumName == Tag ) ? `selected="selected"`: ''; %> value="<%= item.albumName %>"><%= item.albumName %></option>
+                                        <% }) %>
+                                    </select>
+                                  <small id="helpId" class="text-muted">Want a new Album Name? Plese insert from "Create Album".</small>
+                                </div>
                             </div>
                             <div class="col-md-12 mt-3 mb-4 " >
                                 <label for=""> Lyrics  <span class="text-danger"> *</span> </label>
 
                                 <div class="form-group" >
-                                    <textarea name="editor1">  <%=Lyrics %>  </textarea>
+                                    <textarea name="editor1">  <%= Lyrics %>  </textarea>
                                 </div>
                             </div>
                             

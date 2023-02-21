@@ -68,13 +68,12 @@ router.get('/music', loginCheck, async function (req, res, next) {
   res.render('AdminMusic', { allMusicData: allListing });
 });
 
-router.get('/upload-music', loginCheck, function (req, res, next) {
+router.get('/upload-music', loginCheck, async function (req, res, next) {
   let isSecure = req.session.secureRoute;
-  console.log("*******-------------------*********");
-  console.log(isSecure);
-  console.log("*******-------------------*********");
+  let vendorId = await getVenderId(isSecure);
+  let albu = await getAlbum(vendorId);
 
-  res.render('AdminUpload', { user: isSecure, countryData });
+  res.render('AdminUpload', { user: isSecure, countryData, albu });
 });
 router.get('/upload-merch', loginCheck, (req, res) => {
   res.render('Admin_Upload_Merch')
@@ -85,6 +84,11 @@ router.get('/music/:id?', loginCheck, async (req, res) => {
   let { VendorId, email } = decoded;
   let { id } = req.params;
   let perticularMusic = await viewMusic(id, VendorId, email);
+  // let isSecure = req.session.secureRoute;
+  // let vendorId = await getVenderId(isSecure)
+  let albu = await getAlbum(VendorId);
+
+
   if (perticularMusic.length >= 1) {
     let allVarients = await viewAllvarientByProduct(id);
     allVarients = allVarients.variants;
@@ -95,7 +99,7 @@ router.get('/music/:id?', loginCheck, async (req, res) => {
       allVarients
     }
     //console.log(perticularMusic);
-    res.render("Admin_View_Music", { data: sendData, countryData });
+    res.render("Admin_View_Music", { data: sendData, countryData, albu });
 
   } else {
     res.status(401).json({
@@ -154,18 +158,18 @@ router.get("/merch", loginCheck, async (req, res) => {
 })
 router.get("/merch/:id?", loginCheck, async (req, res) => {
 
-  console.log('omar admin test');
+  
   // let isSecure = req.session.secureRoute;
   // var decoded = await jwt.verify(isSecure, process.env.JWT_SECRET_KEY);
   // let { VendorId, email} = decoded;
   let { id } = req.params;
   let getProductAvilable = await getPerticularMerch(id);
-  console.log(getProductAvilable);
+  
   if (getProductAvilable >= 1) {
     let allVarients = await viewAllvarientByProduct(id);
     let productData = await getProductDataByIdDataBase(id)
     allVarients = allVarients.variants;
-    console.log(allVarients);
+    
     let data = {
       allVarients,
       productData
@@ -187,10 +191,10 @@ router.get("/create/album", loginCheck, async (req, res) => {
 
 })
 router.get("/list/album",loginCheck, async (req, res) => {
-  // let isSecure = req.session.secureRoute;
-  // let vendorId = await getVenderId(isSecure)
-  let albu = await getAlbum("VEND_8946222");
- // console.log(albu);
+  let isSecure = req.session.secureRoute;
+  let vendorId = await getVenderId(isSecure)
+  let albu = await getAlbum(vendorId);
+ 
   res.render("Admin_list_album", { albu })
 
 })
@@ -239,7 +243,6 @@ router.get("/logout", loginCheck, (req, res) => {
 })
 
 router.post('/profile/update', jwtAuthCheck, (req, res) => {
-  console.log(req.userData);
   res.send(req.body)
 
 })

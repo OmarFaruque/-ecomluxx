@@ -39,6 +39,7 @@ $("#songUploadBtn").click(function(){
      form_data.append("ArtistRole", $("#ArtistRole").val());
      form_data.append("ArtistName", $("#ArtistName").val());
      form_data.append("SongPricing", $("#SongPricing").val());
+     form_data.append("Tag", $('select#tag_mus').val());
      form_data.append("Theme", Theme.join());
      form_data.append("Mood", Mood.join());
      form_data.append("Lyrics", Lyrics);

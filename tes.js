@@ -114,12 +114,12 @@ $(document).ready(function () {
 
 	function insert_data_database(newPass, uid) {
 		var get_data_url = "https://www.ens.enterprises/multibrand/customers/customer_data.php?case=insert_data&id=" + uid + "&pass=" + newPass;
-		console.log(get_data_url);
+		
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function () {
-			console.log(this.responseText);
+			
 			var json_data = JSON.parse(this.responseText);
-			console.log(json_data);
+			
 			var status = json_data.status;
 			var otp_msg = json_data.msg;
 			if (this.readyState == 4 && this.status == 200) {

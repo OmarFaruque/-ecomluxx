@@ -4,7 +4,7 @@ const requestIp = require("request-ip")
       router.use(requestIp.mw())
 const IpModel = require("../../Models/AdminModel/Ip")
 // Middelware 
-let { upload1, upload_2, upload_3 } = require("./Middelware/SongUpload");
+let { upload1, upload_2, upload_3, upload_4 } = require("./Middelware/SongUpload");
 let { signUpChecker, signIncheck, forgetPasscheck, resavePasswordh, resavePassToDb,artistProfileUpdateChecker } = require("./Middelware/SignUp");
 
 let { loginCheck, jwtAuthCheck } = require("./Middelware/Authentication");
@@ -49,7 +49,7 @@ router.post("/merch/upload",upload_3, merchUpload)
 router.put("/merch/upload", updateMerchTit)
 router.post("/merch-variant", upload_3, variantUpdate)
 
-router.post("/create/album", createAlbum)
+router.post("/create/album", upload_4, createAlbum)
 
 
 

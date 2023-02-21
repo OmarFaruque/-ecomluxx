@@ -12,13 +12,16 @@ exports.MusicUpload = async (req, res) => {
     let isSecure = req.session.secureRoute;
     var decoded = await jwt.verify(isSecure, process.env.JWT_SECRET_KEY);
     let { VendorId, email } = decoded;
-    let { SongTitle, RecordingYear, ReleaseDate, Country, ArtistRole, ArtistName, SongPricing, Theme, Mood, Lyrics, license_prices } = req.body;
+    let { SongTitle, RecordingYear, ReleaseDate, Country, ArtistRole, ArtistName, SongPricing, Theme, Mood, Lyrics, license_prices, Tag } = req.body;
 
-    let tagCreate = [...Theme.split(","), ...Mood.split(",")];
+    // let tagCreate = [...Theme.split(","), ...Mood.split(",")];
+    let tagCreate = [...Theme.split(","), ...Mood.split(","), Tag];
 
     //REvert join for license price 
     license_prices = license_prices.split(",")
-    // // //console.log(tagCreate);
+    
+    console.log('tags omar: ', tagCreate);
+
     let ImageValue = req.files;
     let MusicValue = req.files.SongFile[0];
     let allObj = []
@@ -109,7 +112,8 @@ exports.MusicUpload = async (req, res) => {
       ProductID: productCreate.data.product.id,
       Published: 2,
       Email: email,
-      Lyrics
+      Lyrics, 
+      Tag
     }
     // console.log(insertData);
     let newData = await new musicModel(insertData)
@@ -138,7 +142,7 @@ exports.MusicUpdate = async (req, res) => {
   let { VendorId, email } = decoded;
   let { SongTitle, RecordingYear, ReleaseDate, Country, ArtistRole, ArtistName, Theme, Mood, ProductID, SongImage0, SongFile, OldSongImage, OldSongFile, Lyrics, Tag } = req.body;
   let tagCreate = [...Theme.split(","), ...Mood.split(","), Tag];
-   console.log(tagCreate); 
+   console.log('update Tags: ', tagCreate); 
   if (req.files?.SongFile) {
     var MusicValue = await aswInsertFile(req.files.SongFile[0]);
     MusicValue = MusicValue.Location;

@@ -174,7 +174,6 @@
             let title = document.getElementById("title");
             let list = document.getElementById('merch_list').value;
             let merch_Image = $("#merch_Image").prop("files");
-                 console.log([...merch_Image]);
 
             var form_data = new FormData();
 
@@ -190,26 +189,24 @@
      
 
 
-            console.log(description);
-            $.ajax({
-         url: '/artist/merch/upload',
-         type: 'POST',
-         processData: false, // important
-         contentType: false, // important
-         dataType : 'json',
-         data: form_data,
-        //  headers: {
-        //     Authorization : `Bearer ${userValue}`
-        //  },
-         success: function(result){
-             console.log(result);
-             if(result.message ==  "flag1"){
-                 $("#save_btn").html("Saving");
-                  window.location.replace(`https://artist-music-seller.herokuapp.com/artist/merch/${result.data}`)
-            }
             
-
-         },
+            $.ajax({
+                url: '/artist/merch/upload',
+                type: 'POST',
+                processData: false, // important
+                contentType: false, // important
+                dataType : 'json',
+                data: form_data,
+                //  headers: {
+                //     Authorization : `Bearer ${userValue}`
+                //  },
+                success: function(result){
+                    console.log('resultis: ', result);
+                    if(result.message ==  "flag1"){
+                        $("#save_btn").html("Saving");
+                        window.location.replace(`https://artist-music-seller.herokuapp.com/artist/merch/${result.data}`)
+                    }
+                },
      });
 
 

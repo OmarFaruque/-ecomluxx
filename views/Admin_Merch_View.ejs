@@ -113,6 +113,8 @@
 
                         </div>
                     </div>
+
+                    
                     <div class="row" id="row_two" >
                         <div class="col-md-12 table-responsive">
                             <table class="table" id="example_0" class="table  " style="width:100%; border: none;" >
@@ -251,9 +253,12 @@ function updateVariant(index){
     form_data.append("sku", sku);
     form_data.append("barcode", barcode);
     form_data.append("productId", productId);
-    form_data.append("merchImage", $(`#merch_Image_${index}`).prop("files")[0]);
-
-    console.log('omar2:', $(`#merch_Image_${index}`).prop("files")[0]);
+    if(typeof $(`#merch_Image_${index}`).prop("files")[0] != 'undefined'){
+        form_data.append("merchImage0", $(`#merch_Image_${index}`).prop("files")[0]);
+    }
+    
+    
+    
     $.ajax({
          url: '/artist/merch-variant',
          type: 'POST',

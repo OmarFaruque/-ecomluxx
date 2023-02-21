@@ -10,7 +10,7 @@ exports.merchUpload = async (req, res) => {
   var decoded = await jwt.verify(isSecure, process.env.JWT_SECRET_KEY);
   let { VendorId, email } = decoded;
   try {
-    console.log(req.body);
+
     //  console.log(req.files.merchImage[0]);
     let {
       title,
@@ -31,7 +31,7 @@ exports.merchUpload = async (req, res) => {
       allObj.push(ImageValue[va][0]);
     }
    // allObj.shift(1)
-    console.log(allObj)
+    
     var promises = [];
     for (var i = 0; i < allObj.length; i++) {
       var file = allObj[i];
@@ -39,10 +39,8 @@ exports.merchUpload = async (req, res) => {
     }
     let allImage = await Promise.all(promises);
     let allImagedata = allImage.map(item => {
-      return { src: item.Location }
+      return item.Location
     })
-    console.log(allImagedata)
-    console.log(allImagedata[0]);
 
     // console.log("ap",getoptions);
    // console.log({ awsImageResult, VendorId });
@@ -222,7 +220,7 @@ exports.variantUpdate = async(req,res)=> {
       
     
     
-    let ImageValue = req.files?.merchImage ? req.files?.merchImage[0] : null;
+    let ImageValue = req.files?.merchImage0 ? req.files?.merchImage0[0] : null;
 
 
     let productJsonData = {
@@ -234,10 +232,13 @@ exports.variantUpdate = async(req,res)=> {
           }
         }
 
+
+        console.log('image value: ', ImageValue)
     
     
     if(ImageValue){
       let awsImageResult = await aswInsertFile(ImageValue);
+      productJsonData.variant.image_url = await awsImageResult.Location
       let imageUpdate = await axios({
         url:`${process.env.Shopify_API_Header}/products/${productId}/images.json`,
         method:"POST",
@@ -247,12 +248,14 @@ exports.variantUpdate = async(req,res)=> {
           }
         }
       })
-      
-    //  productJsonData.variant.image_id = await imageUpdate.data.image.id;
-     //console.log(imageUpdate.data)
+       
+     productJsonData.variant.image_id = await imageUpdate.data.image.id;
+     
     }else{
       console.log("no - image");
     }
+
+
       let updateVariant = await axios({
         url:`${process.env.Shopify_API_Header}/variants/${varientid}.json`,
         method:"PUT",

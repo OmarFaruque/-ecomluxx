@@ -7,6 +7,7 @@
     }
 </style>
 <div class="main-panel">
+    <!-- <%= JSON.stringify(albu)%> -->
    <!-- Navbar -->
    <%- include('./Component/Header.ejs') %>
    <!-- End Navbar -->
@@ -237,6 +238,19 @@
                                             <input type="checkbox" value="JHB" name="Theme" > <span>JHB</span>
                                         </li>
                                     </ul>
+                                </div>
+                            </div>
+                            <div class="d-flex w-100">
+                                <div class="form-group">
+                                    <label class="">Album Name<span class="text-danger"> *</span></label>
+                                    <!-- <input type="text"  class="form-control" value="" id="tag_mus" > -->
+                                    <select class="form-control" name="tag_mus" id="tag_mus">
+                                        <option value="">Select Album Name</option>
+                                        <% albu.map(item=>{ %>
+                                            <option value="<%= item.albumName %>"><%= item.albumName %></option>
+                                        <% }) %>
+                                    </select>
+                                  <small id="helpId" class="text-muted">Want a new Album Name? Plese insert from "Create Album".</small>
                                 </div>
                             </div>
                         </div>
