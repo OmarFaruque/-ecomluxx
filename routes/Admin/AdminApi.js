@@ -26,7 +26,7 @@ let {
 } = require("./AdminControler/Merch");
 
 const {
-    createAlbum
+    createAlbum, deleteAlbum
 } = require("./AdminControler/album");
 
 
@@ -50,6 +50,8 @@ router.put("/merch/upload", updateMerchTit)
 router.post("/merch-variant", upload_3, variantUpdate)
 
 router.post("/create/album", upload_4, createAlbum)
+router.post("/delete/album", deleteAlbum)
+
 
 
 

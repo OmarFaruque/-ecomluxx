@@ -38,7 +38,7 @@ exports.createAlbum = async (req, res) => {
             method: "POST",
             data: {
                 "smart_collection": {
-                    "title": albumname,
+                    "title": `${albumname}`,
                     "images": allImagedata,
                     "rules": [{
                         "column": "tag",
@@ -48,7 +48,7 @@ exports.createAlbum = async (req, res) => {
                     {
                         "column": "vendor",
                         "relation": "equals",
-                        "condition": "VEND_8946222"
+                        "condition": VendorId
                     }]
                 }
             }
@@ -81,5 +81,31 @@ exports.getAlbum = async (VenderId)=>{
         return albumData;
     } catch (error) {
         return []
+    }
+}
+
+exports.deleteAlbum = async (req, res) => {
+    try {
+        let {id} = req.body
+
+        await albumModel.remove({collectionId: id}, function(err, obj){
+            if(err) throw err;
+            console.log('sucessfully remove album')
+        })
+        
+        await axios({
+            url: `${process.env.Shopify_API_Header}/smart_collections/${id}.json`,
+            method: "DELETE"
+        });
+
+
+        res.status(200).json({
+            msg: "success",
+        })
+    } catch (error){
+        res.status(200).json({
+            error: error,
+            req: req.id
+        })
     }
 }

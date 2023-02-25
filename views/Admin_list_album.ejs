@@ -7,6 +7,8 @@
 <div class="main-panel">
 	 <!-- Navbar -->
    <%- include('./Component/Header.ejs') %>
+
+   <!-- <%= JSON.stringify(albu) %> -->
    <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -14,9 +16,7 @@
               <div class="card">
                 <div class="card-header d-flex card-header-primary">
                   <h4 class="card-title mt-2 mr-3">View Album</h4>
-                  <ul class="nav nav-tabs" data-tabs="tabs">
-            
-                   
+                  <ul class="nav nav-tabs" data-tabs="tabs">       
                   </ul>
                   <p class="card-category">
                     <!-- Recording Information -->
@@ -32,6 +32,7 @@
                                         <th>Album Name</th>
                                         <th>Images</th>
                                         <th>Id</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,6 +48,7 @@
                                                 <% } %>
                                             </td>
                                             <td><%=item?.collectionId%></td>
+                                            <td><a href="#" class="btn btn-danger btn-sm" onclick="deleteAlbum(this, <%=item?.collectionId%>)">Delete</a></td>
                                         </tr>
                                         <%
                                     })
@@ -74,8 +76,20 @@
 $(document).ready(function(){
     $('#example_0').DataTable();
     $(".dashboard_li_album_list").addClass("active");
- 
-
 })
-
+var deleteAlbum = function(e, id){
+    $.ajax({
+            url:`/artist/delete/album`,
+            method:"POST",
+            data:{
+                id: id
+            },
+            success:function(result){
+                if(result.msg == 'success'){
+                    $(e).closest('tr').remove();
+                }
+                
+            }
+        })
+}
 </script>
