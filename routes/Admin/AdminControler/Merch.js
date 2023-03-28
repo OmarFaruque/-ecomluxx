@@ -52,6 +52,7 @@ exports.merchUpload = async (req, res) => {
         "vendor": VendorId,
         "published": false,
         "tags":list,
+        "product_type": 'Merch',
         "variants": [
           {
             "option1": title,

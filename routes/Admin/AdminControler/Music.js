@@ -59,6 +59,7 @@ exports.MusicUpload = async (req, res) => {
         "vendor": VendorId,
         "published": false,
         "tags": tagCreate,
+        "product_type": 'Music',
         "variants": [
           {
             "option1": "Buy mp3",
