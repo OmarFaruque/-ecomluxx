@@ -73,7 +73,10 @@ header.header:after {
     content: "";
     transform: skew(0,350deg);
     background-color: #5744cf;
+    min-height: 680px;
 }
+
+
 
 .hero-nav {
     position: relative;
